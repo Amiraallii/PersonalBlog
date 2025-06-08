@@ -10,7 +10,7 @@ namespace Personal.Infrastructure.FluentConfig
         {
             builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.Username)
+            builder.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(100);
 

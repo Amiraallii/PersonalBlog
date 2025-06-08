@@ -1,8 +1,10 @@
-﻿namespace Personal.Application.IServices
+﻿using Personal.Application.Dtos;
+
+namespace Personal.Application.IServices
 {
     public interface IAuthService
     {
-        Task<string> Login(string username, string password);
-        Task Register(string username, string password);
+        Task<AuthResultDto> Login(LoginDto loginDto, CancellationToken ct);
+        Task<AuthResultDto> Register(RegisterDto registerDto, CancellationToken ct);
     }
 }

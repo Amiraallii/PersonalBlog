@@ -2,8 +2,9 @@
 {
     public class User : Common<Guid>
     {
-        public string Username { get; set; } = default!;
+        public string Email { get; set; } = default!;
         public string PasswordHash { get; set; } = default!;
+        public string FullName { get; set; } = default!;
         public Guid RoleId { get; set; }
 
         #region ' Relations '
