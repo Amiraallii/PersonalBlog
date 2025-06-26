@@ -12,10 +12,9 @@ using System.Text;
 
 namespace Personal.Infrastructure.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService(ApplicationDbContext context, IConfiguration configuration) : IAuthService
     {
-        private readonly ApplicationDbContext context;
-        private readonly IConfiguration configuration;
+
 
 
         public async Task<AuthResultDto> Register(RegisterDto registerDto, CancellationToken ct)
@@ -38,7 +37,7 @@ namespace Personal.Infrastructure.Services
                         .FirstOrDefaultAsync()
             };
 
-            context.Users.Add(user);
+            await context.Users.AddAsync(user, ct);
             await context.SaveChangesAsync(ct);
 
             return new AuthResultDto
@@ -51,7 +50,7 @@ namespace Personal.Infrastructure.Services
         public async Task<AuthResultDto> Login(LoginDto loginDto, CancellationToken ct)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email, ct);
-            if (user == null)
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
             {
                 return new AuthResultDto { Success = false, Errors = ["نام کاربری یا رمز اشتباه است"] };
             }
@@ -74,7 +73,7 @@ namespace Personal.Infrastructure.Services
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
                 issuer: configuration["Jwt:Issuer"],
-                audience: configuration["Jwt:Auidience"],
+                audience: configuration["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddHours(2),
                 signingCredentials: creds
