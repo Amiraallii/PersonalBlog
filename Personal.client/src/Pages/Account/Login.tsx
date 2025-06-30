@@ -38,7 +38,7 @@ export default function Login() {
     };
 
     return (
-        <body className="bg-gradient-to-br from-secondary to-light min-h-screen flex items-center justify-center p-4" data-new-gr-c-s-check-loaded="14.1241.0" data-gr-ext-installed="">
+        <div className="bg-gradient-to-br from-secondary to-light min-h-screen flex items-center justify-center p-4" data-new-gr-c-s-check-loaded="14.1241.0" data-gr-ext-installed="">
             <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md">
                 <div className="bg-primary p-6 text-center">
                     <h1 className="text-2xl font-bold text-white">ورود</h1>
@@ -88,6 +88,6 @@ export default function Login() {
                 </form>
             </div>
 
-        </body>
+        </div>
     );
 }
