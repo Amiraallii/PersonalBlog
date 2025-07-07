@@ -59,8 +59,8 @@ export default function Register() {
         <div className="bg-gradient-to-br from-secondary to-light min-h-screen flex items-center justify-center p-4">
             <div className="bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-md">
                 <div className="bg-primary p-6 text-center">
-                    <h1 className="text-2xl font-bold text-white">ثبت نام</h1>
-                    <p className="text-secondary/80 mt-1">لطفا اطلاعات خود را وارد کنید</p>
+                    <h1 className="text-2xl font-bold text-black">ثبت نام</h1>
+                    <p className="text-secondary/80 mt-1 text-black">لطفا اطلاعات خود را وارد کنید</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
@@ -153,7 +153,7 @@ export default function Register() {
                     <div className="pt-2">
                         <button
                             type="submit"
-                            className="w-full bg-primary hover:bg-accent text-white font-medium py-2.5 px-4 rounded-md transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                            className="w-full bg-primary hover:bg-accent text-black font-medium py-2.5 px-4 rounded-md transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                         >
                             ثبت نام
                         </button>
