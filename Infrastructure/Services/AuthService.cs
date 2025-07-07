@@ -8,7 +8,7 @@ using Personal.Infrastructure.Context;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
+using Personal.Domain.Enums;
 
 namespace Personal.Infrastructure.Services
 {
@@ -32,9 +32,9 @@ namespace Personal.Infrastructure.Services
                 Email = registerDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password),
                 RoleId = await context.Roles
-                        .Where(r => r.Name == "User")
+                        .Where(r => r.Name == UserRole.User.ToString())
                         .Select(r => r.Id)
-                        .FirstOrDefaultAsync()
+                        .FirstOrDefaultAsync(ct)
             };
 
             await context.Users.AddAsync(user, ct);
@@ -49,7 +49,9 @@ namespace Personal.Infrastructure.Services
         }
         public async Task<AuthResultDto> Login(LoginDto loginDto, CancellationToken ct)
         {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == loginDto.Email, ct);
+            var user = await context.Users
+                .Include(x => x.Role)
+                .FirstOrDefaultAsync(u => u.Email == loginDto.Email, ct);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
             {
                 return new AuthResultDto { Success = false, Errors = ["نام کاربری یا رمز اشتباه است"] };
@@ -61,25 +63,5 @@ namespace Personal.Infrastructure.Services
             };
         }
 
-        private string GenerateJwtToken(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                new(ClaimTypes.Email,user.Email),
-                new(ClaimTypes.Role,user.Role?.Name??"User")
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:key"]!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                issuer: configuration["Jwt:Issuer"],
-                audience: configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(2),
-                signingCredentials: creds
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
     }
 }

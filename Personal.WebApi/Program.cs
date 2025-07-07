@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Personal.Application.IServices;
 using Personal.Infrastructure.Context;
-using Personal.Infrastructure.Services;
+using Personal.WebApi.Configurations;
+using Personal.WebApi.Extensions;
 using System.Text;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +12,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogConnection")));
 
+builder.Services.AddApplicationServices();
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
@@ -38,15 +37,6 @@ builder.Services.AddAuthentication("Bearer")
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins("http://localhost:1669")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -61,6 +51,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.MigrateDatabase();
     app.MapOpenApi();
 }
 
