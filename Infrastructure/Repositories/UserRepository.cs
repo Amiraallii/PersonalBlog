@@ -31,5 +31,11 @@ namespace Personal.Infrastructure.Repositories
                                 .FirstOrDefaultAsync(u => u.Email == email, ct);
         }
 
+        public async Task<User> GetUserByUserNameAsync(string userName, CancellationToken ct)
+        {
+            return await context.Users
+                                .Include(u => u.Role)
+                                .FirstOrDefaultAsync(u => u.UserName == userName, ct);
+        }
     }
 }

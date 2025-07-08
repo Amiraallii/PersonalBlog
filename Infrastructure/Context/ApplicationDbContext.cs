@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personal.Domain.Entity;
+using BCrypt.Net;
 
 namespace Personal.Infrastructure.Context
 {
@@ -16,6 +17,8 @@ namespace Personal.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var adminPasswordHash = BCrypt.Net.BCrypt.HashPassword("@mirAli5802050");
+            var adminRoleId = Guid.Parse("00000000-0000-0000-0000-000000000002");
             modelBuilder.Entity<Role>().HasData(
                 new Role
                 {
@@ -28,6 +31,18 @@ namespace Personal.Infrastructure.Context
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), 
                     Name = "Admin",
                     CreateDate = DateTime.UtcNow
+                }
+            );
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = Guid.Parse("10000000-0000-0000-0000-000000000001"),
+                    Email = "amirali@gmail.com",
+                    CreateDate = DateTime.UtcNow,
+                    FullName = "Amirali",
+                    PasswordHash = adminPasswordHash, //
+                    RoleId = adminRoleId
+
                 }
             );
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
