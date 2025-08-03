@@ -4,26 +4,27 @@ using Personal.Domain.Entity;
 
 namespace Personal.Infrastructure.FluentConfig
 {
-    public class PostConfiguration : IEntityTypeConfiguration<Post>
+    public class PostConfiguration : IEntityTypeConfiguration<Posts>
     {
-        public void Configure(EntityTypeBuilder<Post> builder)
+        public void Configure(EntityTypeBuilder<Posts> builder)
         {
+            builder.ToTable("Posts", "Post");
+
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Title)
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(p => p.Content)
-                .IsRequired();
+            builder.HasMany(x=> x.ContentBlocks)
+                .WithOne(x => x.Post)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(p => p.Comments)
                 .WithOne(c => c.Post)
-                .HasForeignKey(c => c.PostId);
-
-            builder.HasMany(p => p.Images)
-                .WithOne(i => i.Post)
-                .HasForeignKey(i => i.PostId);
+                .HasForeignKey(c => c.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

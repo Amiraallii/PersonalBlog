@@ -1,4 +1,4 @@
-﻿using Personal.Application.Contracts;
+﻿using Personal.Domain.Contracts;
 using Personal.Infrastructure.Context;
 
 namespace Personal.Infrastructure.Repositories
@@ -7,12 +7,14 @@ namespace Personal.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _context;
         public IUserRepository UserRepository { get; }
+        public IPostRepository PostRepository { get; }
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context, IUserRepository userRepository, IPostRepository postRepository)
         {
             _context = context;
 
-            UserRepository = new UserRepository(_context);
+            UserRepository = userRepository;
+            PostRepository = postRepository;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken ct = default)

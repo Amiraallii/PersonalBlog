@@ -4,11 +4,11 @@ using Personal.Domain.Entity;
 
 namespace Personal.Infrastructure.FluentConfig
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<Users>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Users> builder)
         {
-            builder.ToTable("Users", schema: "Personnel");
+            builder.ToTable("Users", schema: "Account");
 
             builder.HasKey(u => u.Id);
 

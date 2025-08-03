@@ -1,11 +1,11 @@
 ﻿namespace Personal.Domain.Entity
 {
-    public class Role : Common<Guid>
+    public class Roles : Common<Guid>
     {
         public string Name { get; set; } = default!; 
 
         #region ' Relations '
-        public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Users> Users { get; set; } = new List<Users>();
         #endregion ' Relations '
 
     }

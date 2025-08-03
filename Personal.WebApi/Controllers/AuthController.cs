@@ -18,6 +18,7 @@ namespace Personal.WebApi.Controllers
                 FullName = registerDto.FullName,
                 Email = registerDto.Email,
                 Password = registerDto.Password,
+                UserName = registerDto.UserName,
             };
             var result = await mediator.Send(command);
 

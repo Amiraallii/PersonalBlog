@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Personal.Infrastructure.Context;
 using Personal.WebApi.Configurations;
 using Personal.WebApi.Extensions;
+using Personal.WebApi.Middlewares;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,7 @@ var app = builder.Build();
 
 app.UseCors();
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

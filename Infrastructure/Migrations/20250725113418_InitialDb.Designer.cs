@@ -12,8 +12,8 @@ using Personal.Infrastructure.Context;
 namespace Personal.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250608104736_completeModels")]
-    partial class completeModels
+    [Migration("20250725113418_InitialDb")]
+    partial class InitialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Personal.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Personal.Domain.Entity.Comment", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Comments", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,20 +55,50 @@ namespace Personal.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Commnets", "Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Post", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.PostContentBlock", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<byte>("BlockType")
+                        .HasColumnType("tinyint");
+
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostContentBlocks", "Post");
+                });
+
+            modelBuilder.Entity("Personal.Domain.Entity.Posts", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CoverImageAdd")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -78,34 +108,10 @@ namespace Personal.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", "Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.PostImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostImages");
-                });
-
-            modelBuilder.Entity("Personal.Domain.Entity.Role", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Roles", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,10 +127,24 @@ namespace Personal.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", "Account");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                            CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Admin"
+                        });
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.User", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Users", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,38 +168,61 @@ namespace Personal.Infrastructure.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.HasIndex("UserName")
+                        .IsUnique();
+
+                    b.ToTable("Users", "Account");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000001"),
+                            CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "amiraliaghaei69@gmail.com",
+                            FullName = "Amirali",
+                            PasswordHash = "$2a$11$4LXh430wl/OwVD2LZ6M81OsxLK1MHjFS1j5kS.SzvQgRzucn3FL7y",
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            UserName = "Amirali"
+                        });
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Comment", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Comments", b =>
                 {
-                    b.HasOne("Personal.Domain.Entity.Post", "Post")
+                    b.HasOne("Personal.Domain.Entity.Posts", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.PostImage", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.PostContentBlock", b =>
                 {
-                    b.HasOne("Personal.Domain.Entity.Post", "Post")
-                        .WithMany("Images")
+                    b.HasOne("Personal.Domain.Entity.Posts", "Post")
+                        .WithMany("ContentBlocks")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.User", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Users", b =>
                 {
-                    b.HasOne("Personal.Domain.Entity.Role", "Role")
+                    b.HasOne("Personal.Domain.Entity.Roles", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -188,14 +231,14 @@ namespace Personal.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Post", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Posts", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Images");
+                    b.Navigation("ContentBlocks");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Role", b =>
+            modelBuilder.Entity("Personal.Domain.Entity.Roles", b =>
                 {
                     b.Navigation("Users");
                 });

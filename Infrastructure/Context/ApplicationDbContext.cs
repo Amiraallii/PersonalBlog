@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personal.Domain.Entity;
 using BCrypt.Net;
+using Personal.Domain.Contracts;
 
 namespace Personal.Infrastructure.Context
 {
@@ -8,38 +9,41 @@ namespace Personal.Infrastructure.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<User> Users => Set<User>();
-        public DbSet<Role> Roles => Set<Role>();
-        public DbSet<Post> Posts => Set<Post>();
-        public DbSet<Comment> Comments => Set<Comment>();
-        public DbSet<PostImage> PostImages => Set<PostImage>();
+        public DbSet<Users> Users => Set<Users>();
+        public DbSet<Roles> Roles => Set<Roles>();
+        public DbSet<Posts> Posts => Set<Posts>();
+        public DbSet<Comments> Comments => Set<Comments>();
+        public DbSet<PostContentBlock> PostContentBlocks => Set<PostContentBlock>();
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var adminPasswordHash = BCrypt.Net.BCrypt.HashPassword("@mirAli5802050");
+            var adminPasswordHash = "$2a$11$4LXh430wl/OwVD2LZ6M81OsxLK1MHjFS1j5kS.SzvQgRzucn3FL7y";
+
             var adminRoleId = Guid.Parse("00000000-0000-0000-0000-000000000002");
-            modelBuilder.Entity<Role>().HasData(
-                new Role
+            var userRoleId = Guid.Parse("00000000-0000-0000-0000-000000000001"); modelBuilder.Entity<Roles>().HasData(
+                new Roles
                 {
-                    Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), 
+                    Id = userRoleId,
                     Name = "User",
-                    CreateDate = DateTime.UtcNow 
+                    CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, DateTimeKind.Utc)
                 },
-                new Role
+                new Roles
                 {
-                    Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), 
+                    Id = adminRoleId, 
                     Name = "Admin",
-                    CreateDate = DateTime.UtcNow
+                    CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, DateTimeKind.Utc)
                 }
             );
-            modelBuilder.Entity<User>().HasData(
-                new User
+            modelBuilder.Entity<Users>().HasData(
+                new Users
                 {
                     Id = Guid.Parse("10000000-0000-0000-0000-000000000001"),
-                    Email = "amirali@gmail.com",
-                    CreateDate = DateTime.UtcNow,
+                    Email = "amiraliaghaei69@gmail.com",
+                    CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, DateTimeKind.Utc),
                     FullName = "Amirali",
+                    UserName = "Amirali",
                     PasswordHash = adminPasswordHash, //
                     RoleId = adminRoleId
 

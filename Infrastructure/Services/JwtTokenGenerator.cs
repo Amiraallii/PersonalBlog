@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Personal.Application.Contracts;
+using Personal.Domain.Contracts;
 using Personal.Domain.Entity;
 using Personal.Domain.Enums;
 
@@ -15,7 +15,7 @@ namespace Personal.Infrastructure.Services
 {
     public class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerator
     {
-        public string GenerateToken(User user)
+        public string GenerateToken(Users user)
         {
             var claims = new List<Claim>
             {

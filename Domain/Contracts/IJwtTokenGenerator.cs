@@ -1,9 +1,9 @@
 ﻿using Personal.Domain.Entity;
 
-namespace Personal.Application.Contracts
+namespace Personal.Domain.Contracts
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(User user);
+        string GenerateToken(Users user);
     }
 }

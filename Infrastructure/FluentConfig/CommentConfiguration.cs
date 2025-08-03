@@ -4,10 +4,12 @@ using Personal.Domain.Entity;
 
 namespace Personal.Infrastructure.FluentConfig
 {
-    public class CommentConfiguration : IEntityTypeConfiguration<Comment>
+    public class CommentConfiguration : IEntityTypeConfiguration<Comments>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<Comments> builder)
         {
+            builder.ToTable("Commnets", "Post");
+
             builder.HasKey(c => c.Id);
 
             builder.Property(c => c.AuthorName)
@@ -19,6 +21,11 @@ namespace Personal.Infrastructure.FluentConfig
 
             builder.Property(c => c.IsApproved)
                 .HasDefaultValue(false);
+
+            builder.HasOne(x => x.Post)
+                .WithMany(x => x.Comments)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

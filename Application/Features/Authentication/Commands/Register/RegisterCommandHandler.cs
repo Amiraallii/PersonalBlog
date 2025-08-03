@@ -1,11 +1,6 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using MediatR;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Personal.Application.Contracts;
+﻿using MediatR;
 using Personal.Application.Dtos;
+using Personal.Domain.Contracts;
 using Personal.Domain.Entity;
 using Personal.Domain.Enums;
 
@@ -27,7 +22,7 @@ namespace Personal.Application.Features.Authentication.Commands.Register
             }
             var userRole = await unitOfWork.UserRepository.GetRoleByNameAsync(UserRole.User.ToString(), ct);
 
-            var user = new User
+            var user = new Domain.Entity.Users
             {
                 Id = Guid.NewGuid(),
                 FullName = request.FullName,

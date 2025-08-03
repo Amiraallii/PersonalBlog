@@ -1,4 +1,6 @@
-﻿using Personal.Application.Contracts;
+﻿using Personal.Application.Features.Authentication.Commands.Login;
+using Personal.Application.IServices;
+using Personal.Domain.Contracts;
 using Personal.Infrastructure.Repositories;
 using Personal.Infrastructure.Services;
 
@@ -10,20 +12,19 @@ namespace Personal.WebApi.Configurations
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            #region ' Services '
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-
-            #endregion ' Services '
-
-            #region ' Repositories '
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
-            #endregion ' Repositories '
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Personal.Application.IServices.IAuthService).Assembly));
+
+            services.AddMediatR(cfg =>
+        cfg.RegisterServicesFromAssembly(typeof(LoginCommand).Assembly));
+
 
             services.AddCors(options =>
             {

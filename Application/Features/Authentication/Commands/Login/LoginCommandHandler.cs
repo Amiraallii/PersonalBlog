@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using Personal.Application.Contracts;
 using Personal.Application.Dtos;
+using Personal.Domain.Contracts;
 using Personal.Domain.Entity;
 
 namespace Personal.Application.Features.Authentication.Commands.Login
@@ -9,7 +9,7 @@ namespace Personal.Application.Features.Authentication.Commands.Login
     {
         public async Task<AuthResultDto> Handle(LoginCommand request, CancellationToken ct)
         {
-            User user;
+            Domain.Entity.Users user;
 
             if (request.LoginIdentifier.Contains('@'))
             {
