@@ -45,5 +45,18 @@ namespace Personal.Infrastructure.Repositories
                                 .Include(u => u.Role)
                                 .FirstOrDefaultAsync(u => u.UserName == userName, ct);
         }
+
+        public async Task<Users> GetUserByIdAsync(Guid id, CancellationToken ct)
+        {
+            return await context.Users
+                                .Include(u => u.Role)
+                                .FirstOrDefaultAsync(u => u.Id == id, ct);
+        }
+
+        public async Task DeleteUserByIdAsync(Guid id, CancellationToken ct)
+        {
+            await context.Users.Where(x=> x.Id == id).ExecuteDeleteAsync(ct);
+                                
+        }
     }
 }

@@ -37,13 +37,22 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 builder.Services.AddAuthorization();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000") 
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+app.UseCors("AllowReactApp");
 
 app.UseCors();
 

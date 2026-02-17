@@ -9,5 +9,7 @@ namespace Personal.Domain.Contracts
         Task AddUserAsync(Users user, CancellationToken ct);
         Task<Roles> GetRoleByNameAsync(string roleName, CancellationToken ct);
         Task<List<Users>> GetAllUsers(CancellationToken ct);
+        Task<Users> GetUserByIdAsync(Guid id, CancellationToken ct);
+        Task DeleteUserByIdAsync(Guid id, CancellationToken ct);
     }
 }
