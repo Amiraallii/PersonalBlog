@@ -19,12 +19,18 @@ namespace Personal.Infrastructure.Repositories
             await context.AddAsync(user, ct);
         }
 
-        public async Task<List<Users>> GetAllUsers(CancellationToken ct)
+        public async Task<IQueryable<Users>> GetAllUsers(CancellationToken ct)
         {
-            return await context.Users
+            return context.Users
                 .Include(x=> x.Role)
-                .AsNoTracking()
-                .ToListAsync(ct);
+                .AsNoTracking().Select(x => new Users
+                {
+                    Email = x.Email,
+                    FullName = x.FullName,
+                    UserName = x.UserName,
+                    Id = x.Id,
+                    CreateDate = x.CreateDate,
+                });
         }
 
         public async Task<Roles> GetRoleByNameAsync(string roleName, CancellationToken ct)
@@ -57,6 +63,18 @@ namespace Personal.Infrastructure.Repositories
         {
             await context.Users.Where(x=> x.Id == id).ExecuteDeleteAsync(ct);
                                 
+        }
+
+        public async Task UpdateUserAsync(Users model, CancellationToken ct)
+        {
+            context.Update(model);
+            
+        }
+
+        public async Task<bool> IsEmailOrUsernameTakenAsync(Guid userId, string email, string userName, CancellationToken ct)
+        {
+            return await context.Users
+                .AnyAsync(x => x.Id != userId && (x.Email == email || x.UserName == userName), ct);
         }
     }
 }

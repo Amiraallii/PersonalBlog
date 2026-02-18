@@ -1,41 +1,44 @@
-﻿using Personal.Application.Dtos;
-using System.Net;
-using System.Text.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Personal.WebApi.Middlewares
 {
-    public class ErrorHandlingMiddleware 
+    public class ErrorHandlingMiddleware(
+    RequestDelegate next,
+    ILogger<ErrorHandlingMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
-
-        public ErrorHandlingMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
         public async Task Invoke(HttpContext context)
         {
             try
             {
-                await _next(context);
+                await next(context);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                var response = context.Response;
-                response.ContentType = "application/json";
-                response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                logger.LogError(ex, "Unhandled exception at {Path}", context.Request.Path);
 
-                var result = new ResultDto
+                context.Response.ContentType = "application/json";
+
+                context.Response.StatusCode = ex switch
                 {
-                    Code = response.StatusCode,
-                    IsSuccess = false,
-                    Message = $"Internal Server Error: {ex.Message}",
+                    KeyNotFoundException => StatusCodes.Status404NotFound,
+                    InvalidOperationException => StatusCodes.Status400BadRequest,
+                    UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                    _ => StatusCodes.Status500InternalServerError
                 };
 
-                var jsonResponse = JsonSerializer.Serialize(result);
-                await response.WriteAsync(jsonResponse);
+                var problem = new ProblemDetails
+                {
+                    Status = context.Response.StatusCode,
+                    Title = "Request failed",
+                    Detail = context.Response.StatusCode == 500
+                        ? "An unexpected error occurred."
+                        : ex.Message,
+                    Instance = context.Request.Path
+                };
 
+                await context.Response.WriteAsJsonAsync(problem);
             }
         }
     }
+
 }

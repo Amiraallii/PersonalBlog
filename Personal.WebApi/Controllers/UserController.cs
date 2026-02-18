@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Personal.Application.Dtos;
 using Personal.Application.Features.Authentication.Commands.Register;
 using Personal.Application.Features.Users.Command.DeleteUser;
+using Personal.Application.Features.Users.Command.EditUser;
 using Personal.Application.Features.Users.Query.GetAllUsersQuery;
 using Personal.Application.Features.Users.Query.GetUsersById;
 
@@ -15,7 +16,7 @@ namespace Personal.WebApi.Controllers
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers(CancellationToken ct)
         {
-            
+
             var result = await mediator.Send(new GetAllUsersQuery { });
 
             return Ok(result);
@@ -25,15 +26,31 @@ namespace Personal.WebApi.Controllers
         public async Task<IActionResult> GetUsersById(Guid userId, CancellationToken ct)
         {
 
-            var result = await mediator.Send(new GetUsersByIdQuery { UserId = userId});
+            var result = await mediator.Send(new GetUsersByIdQuery { UserId = userId });
 
             return Ok(result);
         }
+
         [HttpDelete("DeleteUserById")]
         public async Task<IActionResult> DeleteUserById(Guid userId, CancellationToken ct)
         {
 
             await mediator.Send(new DeleteUserCommand { UserId = userId });
+
+            return Ok();
+        }
+
+        [HttpPut("EditUserInfo")]
+        public async Task<IActionResult> EditUserInfo(EditUsersDto dto, CancellationToken ct)
+        {
+
+            await mediator.Send(new EditUserCommand
+            {
+                Id = dto.Id,
+                Email = dto.Email,
+                FullName = dto.FullName,
+                UserName = dto.UserName
+            });
 
             return Ok();
         }

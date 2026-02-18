@@ -5,6 +5,7 @@ using Personal.WebApi.Configurations;
 using Personal.WebApi.Extensions;
 using Personal.WebApi.Middlewares;
 using System.Text;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +14,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogConnection")));
 
 builder.Services.AddApplicationServices();
-
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
@@ -35,6 +34,12 @@ builder.Services.AddAuthentication("Bearer")
             )
         };
     });
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
@@ -54,7 +59,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 app.UseCors("AllowReactApp");
 
-app.UseCors();
+//app.UseCors();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

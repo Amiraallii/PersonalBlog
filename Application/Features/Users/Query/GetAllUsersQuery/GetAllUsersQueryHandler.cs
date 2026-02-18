@@ -4,14 +4,8 @@ using Personal.Domain.Contracts;
 
 namespace Personal.Application.Features.Users.Query.GetAllUsersQuery
 {
-    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UsersDto>>
+    public class GetAllUsersQueryHandler(IUserRepository _userRepository) : IRequestHandler<GetAllUsersQuery, List<UsersDto>>
     {
-        private readonly IUserRepository _userRepository;
-
-        public GetAllUsersQueryHandler(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
 
         public async Task<List<UsersDto>> Handle(GetAllUsersQuery request, CancellationToken ct)
         {

@@ -10,4 +10,12 @@
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
     }
+
+    public class EditUsersDto
+    {
+        public Guid Id { get; set; }
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public string FullName { get; set; }
+    }
 }

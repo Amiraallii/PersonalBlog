@@ -4,14 +4,8 @@ using Personal.Domain.Contracts;
 
 namespace Personal.Application.Features.Users.Query.GetUsersById
 {
-    internal class GetUsersByIdQueryHandler : IRequestHandler<GetUsersByIdQuery, UsersDto>
+    internal class GetUsersByIdQueryHandler(IUserRepository _userRepository) : IRequestHandler<GetUsersByIdQuery, UsersDto>
     {
-        private readonly IUserRepository _userRepository;
-
-        public GetUsersByIdQueryHandler(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
 
         public async Task<UsersDto> Handle(GetUsersByIdQuery request, CancellationToken cancellationToken)
         {
