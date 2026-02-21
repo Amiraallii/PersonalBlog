@@ -23,14 +23,7 @@ namespace Personal.Infrastructure.Repositories
         {
             return context.Users
                 .Include(x=> x.Role)
-                .AsNoTracking().Select(x => new Users
-                {
-                    Email = x.Email,
-                    FullName = x.FullName,
-                    UserName = x.UserName,
-                    Id = x.Id,
-                    CreateDate = x.CreateDate,
-                });
+                .AsNoTracking();
         }
 
         public async Task<Roles> GetRoleByNameAsync(string roleName, CancellationToken ct)

@@ -54,5 +54,20 @@ namespace Personal.WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser(RegisterDto dto, CancellationToken ct)
+        {
+
+            await mediator.Send(new RegisterCommand
+            {
+                Email = dto.Email,
+                FullName = dto.FullName,
+                UserName = dto.UserName,
+                Password = dto.Password
+            });
+
+            return Ok();
+        }
     }
 }
