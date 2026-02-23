@@ -1,1 +1,1 @@
-A practice .NET project to learn new skills and showcase my work. Currently on hold due to other priorities; will resume in 2026.
+my personal blog project is a full engineered project which include clean architect, .net 9 (i'm gonna update it to 10 as soon as posible), Ef core, cqrs, unit of work, repository, signalR 
