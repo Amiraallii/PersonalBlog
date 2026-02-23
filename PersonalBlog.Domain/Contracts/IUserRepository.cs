@@ -4,14 +4,14 @@ namespace Personal.Domain.Contracts
 {
     public interface IUserRepository
     {
-        Task<Users> GetUserByEmailAsync(string email, CancellationToken ct);
-        Task<Users> GetUserByUserNameAsync(string userName, CancellationToken ct);
-        Task AddUserAsync(Users user, CancellationToken ct);
-        Task<Roles> GetRoleByNameAsync(string roleName, CancellationToken ct);
-        Task<IQueryable<Users>> GetAllUsers(CancellationToken ct);
-        Task<Users> GetUserByIdAsync(Guid id, CancellationToken ct);
+        Task<User> GetUserByEmailAsync(string email, CancellationToken ct);
+        Task<User> GetUserByUserNameAsync(string userName, CancellationToken ct);
+        Task AddUserAsync(User user, CancellationToken ct);
+        Task<Role> GetRoleByNameAsync(string roleName, CancellationToken ct);
+        Task<IQueryable<User>> GetAllUsers(CancellationToken ct);
+        Task<User> GetUserByIdAsync(Guid id, CancellationToken ct);
         Task DeleteUserByIdAsync(Guid id, CancellationToken ct);
-        Task UpdateUserAsync(Users model, CancellationToken ct);
+        Task UpdateUserAsync(User model, CancellationToken ct);
         Task<bool> IsEmailOrUsernameTakenAsync(Guid userId, string email, string userName, CancellationToken ct);
     }
 }

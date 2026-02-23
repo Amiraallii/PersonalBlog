@@ -19,9 +19,7 @@ namespace Personal.Application.Features.Users.Command.EditUser
                     throw new InvalidOperationException("these userName or email already is used by another user");
 
                 }
-                user.FullName = request.FullName;
-				user.UserName = request.UserName;
-				user.Email = request.Email;
+                user.UpdateUserInfo(request.Email, request.UserName, request.FullName, user.RoleId);
 				
                 await _userRepository.UpdateUserAsync(user, cancellationToken);
 				await unitOfWork.SaveChangesAsync();

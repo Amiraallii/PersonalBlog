@@ -13,7 +13,7 @@ namespace Personal.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddPost(Posts post, CancellationToken ct)
+        public async Task AddPost(Post post, CancellationToken ct)
         {
             await _context.Posts.AddAsync(post, ct);
         }

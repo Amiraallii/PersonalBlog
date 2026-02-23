@@ -15,37 +15,39 @@ namespace Personal.Application.Features.Post.Command.AddPost
             {
                 var coverImagePath = await fileService
                     .SaveFileAsync(new FileDto { FileStream = request.CoverImage, FileName = request.CoverImageName }, ct);
+                var contents = request.PostContents.OrderBy(b => b.Order).ToList();
+                var post = new Domain.Entity.Post
+                (
+                    request.Title,
+                    coverImagePath,
+                    request.PublishDate
 
-                var post = new Posts
+                );
+                foreach (var blockCommand in request.PostContents.OrderBy(b => b.Order))
                 {
-                    CreateDate = DateTime.Now,
-                    PublishDate = request.PublishDate,
-                    CoverImageAdd = coverImagePath,
-                    Title = request.Title,
-                    ContentBlocks = new List<PostContentBlock>()
-
-                };
-                foreach (var blockCommand in request.Contents.OrderBy(b => b.Order))
-                {
-                    var newBlock = new PostContentBlock
-                    {
-                        Order = blockCommand.Order,
-                        BlockType = blockCommand.ContentType,
-                    };
+                    string finalContent = string.Empty;
 
                     if (blockCommand.ContentType == ContentTypeEnum.Text)
                     {
-                        newBlock.Content = blockCommand.Content;
+                        finalContent = blockCommand.Content;
                     }
-                    else 
+                    else
                     {
                         if (blockCommand.Media != null)
                         {
                             var mediaPath = await fileService.SaveFileAsync(new FileDto { FileStream = blockCommand.Media, FileName = blockCommand.FileName }, ct);
-                            newBlock.Content = mediaPath;
+                            finalContent = mediaPath;
                         }
                     }
-                    post.ContentBlocks.Add(newBlock);
+                    var newBlock = new PostContentBlock
+                    (
+                        blockCommand.Order,
+                        blockCommand.ContentType,
+                        finalContent
+                    );
+
+                    
+                    post.AddContentBlock(newBlock);
 
                 }
                 await unitOfWork.PostRepository.AddPost(post, ct);

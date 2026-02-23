@@ -4,9 +4,9 @@ using Personal.Domain.Entity;
 
 namespace Personal.Infrastructure.FluentConfig
 {
-    public class PostConfiguration : IEntityTypeConfiguration<Posts>
+    public class PostConfiguration : IEntityTypeConfiguration<Post>
     {
-        public void Configure(EntityTypeBuilder<Posts> builder)
+        public void Configure(EntityTypeBuilder<Post> builder)
         {
             builder.ToTable("Posts", "Post");
 
@@ -16,7 +16,7 @@ namespace Personal.Infrastructure.FluentConfig
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.HasMany(x=> x.ContentBlocks)
+            builder.HasMany(x=> x.PostContentBlock)
                 .WithOne(x => x.Post)
                 .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.Restrict);

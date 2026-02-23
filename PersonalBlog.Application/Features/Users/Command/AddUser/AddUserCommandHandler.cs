@@ -1,24 +1,24 @@
 ﻿using MediatR;
 using Personal.Application.Dtos;
 using Personal.Domain.Contracts;
-using Personal.Domain.Enums;
-using PersonalBlog.Application.IServices;
 using Personal.Domain.Entity;
-namespace Personal.Application.Features.Authentication.Commands.Register
+using Personal.Domain.Enums;
+
+namespace PersonalBlog.Application.Features.Users.Command.AddUser
 {
-    public class RegisterCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<RegisterCommand, AuthResultDto>
+    public class AddUserCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<AddUserCommand, ResultDto>
     {
-        public async Task<AuthResultDto> Handle(RegisterCommand request, CancellationToken ct)
+        public async Task<ResultDto> Handle(AddUserCommand request, CancellationToken ct)
         {
             var existingEmail = await unitOfWork.UserRepository.GetUserByEmailAsync(request.Email, ct);
             if (existingEmail != null)
             {
-                return new AuthResultDto { Success = false, Errors = ["ایمیل تکراری است"] };
+                return new ResultDto { IsSuccess = false, Message = "ایمیل تکراری است" };
             }
             var existingUser = await unitOfWork.UserRepository.GetUserByUserNameAsync(request.UserName, ct);
             if (existingUser != null)
             {
-                return new AuthResultDto { Success = false, Errors = ["نام کاربری تکراری است"] };
+                return new ResultDto { IsSuccess = false, Message = "نام کاربری تکراری است" };
             }
             var userRole = await unitOfWork.UserRepository.GetRoleByNameAsync(UserRole.User.ToString(), ct);
 
@@ -35,15 +35,8 @@ namespace Personal.Application.Features.Authentication.Commands.Register
             await unitOfWork.UserRepository.AddUserAsync(user, ct);
 
             await unitOfWork.SaveChangesAsync(ct);
+            return new ResultDto { IsSuccess = true, Message = "کاربر با موفقیت ساخته شد" };
 
-
-            return new AuthResultDto
-            {
-                Success = true,
-                Token = jwtTokenGenerator.GenerateToken(user)
-            };
         }
-
-
     }
 }

@@ -14,38 +14,38 @@ namespace Personal.Infrastructure.Repositories
             this.context = context;
         }
 
-        public async Task AddUserAsync(Users user, CancellationToken ct)
+        public async Task AddUserAsync(User user, CancellationToken ct)
         {
             await context.AddAsync(user, ct);
         }
 
-        public async Task<IQueryable<Users>> GetAllUsers(CancellationToken ct)
+        public async Task<IQueryable<User>> GetAllUsers(CancellationToken ct)
         {
             return context.Users
                 .Include(x=> x.Role)
                 .AsNoTracking();
         }
 
-        public async Task<Roles> GetRoleByNameAsync(string roleName, CancellationToken ct)
+        public async Task<Role> GetRoleByNameAsync(string roleName, CancellationToken ct)
         {
             return await context.Roles.FirstOrDefaultAsync(r => r.Name == roleName, ct);
         }
 
-        public async Task<Users> GetUserByEmailAsync(string email, CancellationToken ct)
+        public async Task<User> GetUserByEmailAsync(string email, CancellationToken ct)
         {
             return await context.Users
                                 .Include(u => u.Role)
                                 .FirstOrDefaultAsync(u => u.Email == email, ct);
         }
 
-        public async Task<Users> GetUserByUserNameAsync(string userName, CancellationToken ct)
+        public async Task<User> GetUserByUserNameAsync(string userName, CancellationToken ct)
         {
             return await context.Users
                                 .Include(u => u.Role)
                                 .FirstOrDefaultAsync(u => u.UserName == userName, ct);
         }
 
-        public async Task<Users> GetUserByIdAsync(Guid id, CancellationToken ct)
+        public async Task<User> GetUserByIdAsync(Guid id, CancellationToken ct)
         {
             return await context.Users
                                 .Include(u => u.Role)
@@ -58,7 +58,7 @@ namespace Personal.Infrastructure.Repositories
                                 
         }
 
-        public async Task UpdateUserAsync(Users model, CancellationToken ct)
+        public async Task UpdateUserAsync(User model, CancellationToken ct)
         {
             context.Update(model);
             

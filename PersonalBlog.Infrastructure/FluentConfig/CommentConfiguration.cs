@@ -4,9 +4,9 @@ using Personal.Domain.Entity;
 
 namespace Personal.Infrastructure.FluentConfig
 {
-    public class CommentConfiguration : IEntityTypeConfiguration<Comments>
+    public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {
-        public void Configure(EntityTypeBuilder<Comments> builder)
+        public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.ToTable("Commnets", "Post");
 

@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Personal.Domain.Contracts;
 using Personal.Domain.Entity;
 using Personal.Domain.Enums;
+using PersonalBlog.Application.IServices;
 
 namespace PersonalBlog.Infrastructure.Shared.Authentication.JWT
 {
     public class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenerator
     {
-        public string GenerateToken(Users user)
+        public string GenerateToken(User user)
         {
             var claims = new List<Claim>
             {

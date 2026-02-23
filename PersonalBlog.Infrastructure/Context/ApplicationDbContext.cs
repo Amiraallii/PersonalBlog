@@ -9,10 +9,10 @@ namespace Personal.Infrastructure.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Users> Users => Set<Users>();
-        public DbSet<Roles> Roles => Set<Roles>();
-        public DbSet<Posts> Posts => Set<Posts>();
-        public DbSet<Comments> Comments => Set<Comments>();
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Role> Roles => Set<Role>();
+        public DbSet<Post> Posts => Set<Post>();
+        public DbSet<Comment> Comments => Set<Comment>();
         public DbSet<PostContentBlock> PostContentBlocks => Set<PostContentBlock>();
 
 
@@ -22,29 +22,30 @@ namespace Personal.Infrastructure.Context
             var adminPasswordHash = "$2a$11$4LXh430wl/OwVD2LZ6M81OsxLK1MHjFS1j5kS.SzvQgRzucn3FL7y";
 
             var adminRoleId = Guid.Parse("00000000-0000-0000-0000-000000000002");
-            var userRoleId = Guid.Parse("00000000-0000-0000-0000-000000000001"); modelBuilder.Entity<Roles>().HasData(
-                new Roles
+            var userRoleId = Guid.Parse("00000000-0000-0000-0000-000000000001"); 
+            modelBuilder.Entity<Role>().HasData(
+                new 
                 {
                     Id = userRoleId,
                     Name = "User",
                     CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, DateTimeKind.Utc)
                 },
-                new Roles
+                new 
                 {
                     Id = adminRoleId, 
                     Name = "Admin",
                     CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, DateTimeKind.Utc)
                 }
             );
-            modelBuilder.Entity<Users>().HasData(
-                new Users
+            modelBuilder.Entity<User>().HasData(
+                new 
                 {
                     Id = Guid.Parse("10000000-0000-0000-0000-000000000001"),
                     Email = "amiraliaghaei69@gmail.com",
                     CreateDate = new DateTime(2025, 7, 8, 0, 0, 0, DateTimeKind.Utc),
                     FullName = "Amirali",
                     UserName = "Amirali",
-                    PasswordHash = adminPasswordHash, //
+                    PasswordHash = adminPasswordHash,
                     RoleId = adminRoleId
 
                 }

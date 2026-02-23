@@ -2,6 +2,7 @@
 using Personal.Application.IServices;
 using Personal.Domain.Contracts;
 using Personal.Infrastructure.Repositories;
+using PersonalBlog.Application.IServices;
 using PersonalBlog.Infrastructure.Shared.Authentication.JWT;
 using PersonalBlog.Infrastructure.Shared.FileServices;
 

@@ -10,7 +10,7 @@ namespace Personal.Application.Features.Post.Command.AddPost
         public string CoverImageName { get; set; }
         public DateTime PublishDate { get; set; }
         public Stream CoverImage{ get; set; }
-        public ICollection<ContentBlockCommand> Contents { get; set; }
+        public ICollection<ContentBlockCommand> PostContents { get; set; }
     }
 
     public class ContentBlockCommand

@@ -6,6 +6,7 @@ using Personal.Application.Features.Users.Command.DeleteUser;
 using Personal.Application.Features.Users.Command.EditUser;
 using Personal.Application.Features.Users.Query.GetAllUsersQuery;
 using Personal.Application.Features.Users.Query.GetUsersById;
+using PersonalBlog.Application.Features.Users.Command.AddUser;
 
 namespace Personal.WebApi.Controllers
 {
@@ -59,7 +60,7 @@ namespace Personal.WebApi.Controllers
         public async Task<IActionResult> CreateUser(RegisterDto dto, CancellationToken ct)
         {
 
-            await mediator.Send(new RegisterCommand
+            await mediator.Send(new AddUserCommand
             {
                 Email = dto.Email,
                 FullName = dto.FullName,
