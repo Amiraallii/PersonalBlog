@@ -25,10 +25,10 @@ namespace Personal.WebApi.Controllers
                 CoverImageName = post.CoverImage?.FileName,
                 PublishDate = post.PublishDate,
                 CoverImage = post.CoverImage?.OpenReadStream(),
-                PostContents = post.ContentBlocks.Select(x=> new ContentBlockCommand
+                PostContents = post.PostContents.Select(x=> new ContentBlockCommand
                 {
                     Content = x.Content,
-                    ContentType = x.ContetntType,
+                    ContentType = x.ContentType,
                     FileName = x.Media?.FileName,
                     Media = x.Media?.OpenReadStream(),
                     Order = x.Order,

@@ -2,9 +2,9 @@
 {
     public enum ContentTypeEnum : byte
     {
-        Text,
-        Heading,
-        Image,
-        Video,
+        Text = 0,
+        Heading = 1,
+        Image = 2,
+        Video = 3,
     }
 }

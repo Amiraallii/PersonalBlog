@@ -27,7 +27,7 @@ namespace Personal.Application.Features.Post.Command.AddPost
                 {
                     string finalContent = string.Empty;
 
-                    if (blockCommand.ContentType == ContentTypeEnum.Text)
+                    if (blockCommand.ContentType == ContentTypeEnum.Text || blockCommand.ContentType == ContentTypeEnum.Heading)
                     {
                         finalContent = blockCommand.Content;
                     }

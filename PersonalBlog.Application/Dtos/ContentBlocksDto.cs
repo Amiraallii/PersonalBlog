@@ -8,6 +8,6 @@ namespace Personal.Application.Dtos
         public IFormFile? Media { get; set; }
         public string Content { get; set; }
         public int Order { get; set; }
-        public ContentTypeEnum ContetntType { get; set; }
+        public ContentTypeEnum ContentType { get; set; }
     }
 }
