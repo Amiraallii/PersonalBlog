@@ -16,7 +16,7 @@ namespace Personal.Infrastructure.FluentConfig
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.HasMany(x=> x.PostContentBlock)
+            builder.HasMany(x=> x.PostContents)
                 .WithOne(x => x.Post)
                 .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.Restrict);

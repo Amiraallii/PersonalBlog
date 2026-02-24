@@ -20,14 +20,14 @@
         public DateTime PublishDate { get; private set; }
         #region ' Relations '
         public ICollection<Comment> Comments { get; private set; } = new List<Comment>();
-        public ICollection<PostContentBlock> PostContentBlock { get; private set; } = new List<PostContentBlock>();
+        public ICollection<PostContentBlock> PostContents { get; private set; } = new List<PostContentBlock>();
         #endregion ' Relations '
 
         #region ' Actions '
 
         public void AddContentBlock(PostContentBlock block)
         {
-            PostContentBlock.Add(block);
+            PostContents.Add(block);
         }
 
         #endregion ' Actions '

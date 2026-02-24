@@ -7,6 +7,6 @@ namespace Personal.Application.Dtos
         public string Title { get; set; }
         public DateTime PublishDate { get; set; }
         public IFormFile CoverImage { get; set; }
-        public ICollection<ContentBlocksDto> PostContents { get; set; }
+        public ICollection<AddContentBlocksDto> PostContents { get; set; }
     }
 }

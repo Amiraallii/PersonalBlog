@@ -11,7 +11,7 @@ namespace Personal.Domain.Entity
         public PostContentBlock(int order, ContentTypeEnum blockType, string content)
         {
             Order = order;
-            BlockType = blockType;
+            ContentType = blockType;
             Content = content;
         }
 
@@ -19,7 +19,7 @@ namespace Personal.Domain.Entity
         public Guid PostId { get; private set; }
         public Post Post { get; private set; }
         public int Order { get; private set; } 
-        public ContentTypeEnum BlockType { get; private set; } 
+        public ContentTypeEnum ContentType { get; private set; } 
         public string Content { get; private set; }
 
         #region ' Actions '

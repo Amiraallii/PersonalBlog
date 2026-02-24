@@ -12,7 +12,7 @@ namespace Personal.Infrastructure.FluentConfig
             builder.HasKey(x => x.Id);
             builder.Property(x => x.PostId).IsRequired();
             builder.Property(x=> x.Order).IsRequired();
-            builder.Property(x=> x.BlockType).IsRequired();
+            builder.Property(x=> x.ContentType).IsRequired();
 
         }
     }
