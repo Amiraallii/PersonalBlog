@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Personal.Application.Dtos;
 using Personal.Application.Features.Post.Command.AddPost;
+using PersonalBlog.Application.Dtos;
 using PersonalBlog.Application.Features.Post.Query.GetAllPosts;
+using PersonalBlog.Application.Features.Post.Query.GetPostById;
 
 namespace Personal.WebApi.Controllers
 {
@@ -25,6 +27,7 @@ namespace Personal.WebApi.Controllers
                 Title = post.Title,
                 CoverImageName = post.CoverImage?.FileName,
                 PublishDate = post.PublishDate,
+                Summary = post.Summary,
                 CoverImage = post.CoverImage?.OpenReadStream(),
                 PostContents = post.PostContents.Select(x => new ContentBlockCommand
                 {
@@ -48,13 +51,29 @@ namespace Personal.WebApi.Controllers
         }
 
         [HttpGet("GetAllPosts")]
-        public async Task<IActionResult> GetAllPosts(int skip, int size)
+        public async Task<IActionResult> GetAllPosts([FromQuery]ResultFilter filter)
         {
             var query = new GetAllPostsQuery
             {
-                Skip = skip,
-                Size = size,
+                Skip = filter.Skip,
+                Size = filter.Size,
             };
+            var result = await mediator.Send(query);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("GetPostById")]
+        public async Task<IActionResult> GetPostById(Guid id)
+        {
+            var query = new GetPostByIdQuery { Id = id };
+           
             var result = await mediator.Send(query);
             if (result.IsSuccess)
             {

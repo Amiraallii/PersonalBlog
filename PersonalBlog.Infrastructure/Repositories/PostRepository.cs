@@ -28,14 +28,23 @@ namespace Personal.Infrastructure.Repositories
 
         }
 
-        public Task<Post> GetPostById(Guid id, CancellationToken ct)
+        public async Task<Post> GetPostById(Guid id, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Posts.FindAsync([id]);
+            if (entity == null)
+                return null;
+
+            return entity;
+
         }
 
-        public Task GetPostByIdNoTracking(Guid id, CancellationToken ct)
+        public async Task<Post> GetPostByIdNoTracking(Guid id, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Posts.Include(x=> x.PostContents).AsNoTracking().FirstOrDefaultAsync(x=> x.Id == id);
+            if (entity == null)
+                return null;
+
+            return entity;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Personal.Application.Features.Post.Command.AddPost
                 var post = new Domain.Entity.Post
                 (
                     request.Title,
+                    request.Summary,
                     coverImagePath,
                     request.PublishDate
 

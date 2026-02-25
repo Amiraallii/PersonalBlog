@@ -7,6 +7,7 @@ namespace Personal.Application.Features.Post.Command.AddPost
     public class AddPostCommand : IRequest<ResultDto>
     {
         public string Title { get; set; }
+        public string Summary { get; set; }
         public string CoverImageName { get; set; }
         public DateTime PublishDate { get; set; }
         public Stream CoverImage{ get; set; }

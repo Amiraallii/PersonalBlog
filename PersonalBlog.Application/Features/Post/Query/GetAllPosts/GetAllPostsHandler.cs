@@ -13,22 +13,25 @@ namespace PersonalBlog.Application.Features.Post.Query.GetAllPosts
             try
             {
                 var query = postRepository.GetAllPosts();
-                if(!await query.AnyAsync())
+                if (!await query.AnyAsync())
                     return new ResultDto<IReadOnlyList<PostDto>>
                     {
-                        IsSuccess = false,
-                        Code = 404,
+                        IsSuccess = true,
+                        Code = 200,
                         Message = "محتوایی وجود ندارد",
                         Date = DateTime.UtcNow,
                     };
+
+                var skip = (request.Skip - 1) * request.Size;
                 var result = await query
                     .OrderByDescending(x => x.PublishDate)
-                    .Skip(request.Skip)
+                    .Skip(skip)
                     .Take(request.Size)
                     .Select(x => new PostDto
                     {
                         CoverImageAddress = x.CoverImageAdd,
                         Id = x.Id,
+                        Summary = x.Summary,
                         PostContents = x.PostContents.Select(x => new ContentBlocksDto
                         {
                             Content = x.Content,
@@ -41,9 +44,10 @@ namespace PersonalBlog.Application.Features.Post.Query.GetAllPosts
                 return new ResultDto<IReadOnlyList<PostDto>>
                 {
                     IsSuccess = true,
+                    Code = 200,
                     Value = result
-                    
-                };  
+
+                };
             }
             catch (Exception ex)
             {
@@ -56,7 +60,7 @@ namespace PersonalBlog.Application.Features.Post.Query.GetAllPosts
                     Date = DateTime.UtcNow,
                 };
             }
-            
+
         }
     }
 }

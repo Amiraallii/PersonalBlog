@@ -6,9 +6,10 @@
 
         private Post() { }
 
-        public Post(string title, string coverImageAdd, DateTime publishDate) 
+        public Post(string title, string summary, string coverImageAdd, DateTime publishDate) 
         {
             Title = title;
+            Summary = summary;
             CoverImageAdd = coverImageAdd;
             PublishDate = publishDate;
         }
@@ -16,6 +17,7 @@
         #endregion ' Consructor '
 
         public string Title { get; private set; }
+        public string Summary { get; private set; }
         public string CoverImageAdd { get; private set; }
         public DateTime PublishDate { get; private set; }
         #region ' Relations '

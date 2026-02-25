@@ -16,6 +16,10 @@ namespace Personal.Infrastructure.FluentConfig
                 .IsRequired()
                 .HasMaxLength(200);
 
+            builder.Property(p => p.Summary)
+                .IsRequired()
+                .HasMaxLength(500);
+
             builder.HasMany(x=> x.PostContents)
                 .WithOne(x => x.Post)
                 .HasForeignKey(x => x.PostId)
