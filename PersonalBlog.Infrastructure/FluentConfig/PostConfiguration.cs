@@ -25,6 +25,11 @@ namespace Personal.Infrastructure.FluentConfig
                 .HasForeignKey(x => x.PostId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(x => x.Author)
+                .WithMany(x=> x.Posts)
+                .HasForeignKey(x => x.AuthorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasMany(p => p.Comments)
                 .WithOne(c => c.Post)
                 .HasForeignKey(c => c.PostId)

@@ -5,42 +5,31 @@ using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Post.Query.GetPostById
 {
-    public class GetPostByIdHandler(IPostRepository postRepository) : IRequestHandler<GetPostByIdQuery, ResultDto<PostDto>>
+    public class GetPostByIdHandler(IPostRepository postRepository) : IRequestHandler<GetPostByIdQuery, PostDto>
     {
-        public async Task<ResultDto<PostDto>> Handle(GetPostByIdQuery request, CancellationToken ct)
+        public async Task<PostDto> Handle(GetPostByIdQuery request, CancellationToken ct)
         {
             var entity = await postRepository.GetPostByIdNoTracking(request.Id, ct);
             if (entity == null)
             {
-                return new ResultDto<PostDto> 
-                { 
-                    Code = 200,
-                    IsSuccess = false,
-                    Message = "پست مورد نظر یافت نشد",
-                    Date = DateTime.UtcNow,
-                    Value = null
-                };
+                throw new KeyNotFoundException();
             }
 
-            return new ResultDto<PostDto>
+            return new PostDto
             {
-                Code = 200,
-                IsSuccess = false,
-                Date = DateTime.UtcNow,
-                Value = new PostDto
-                {
-                    CoverImageAddress = entity.CoverImageAdd,
+               
                     Id = entity.Id,
+                    Title = entity.Title,
+                    Summary = entity.Summary,
+                    PublishDate = entity.PublishDate,
+                    CoverImageAddress = entity.CoverImageAdd,
                     PostContents = entity.PostContents.Select(x=> new ContentBlocksDto
                     {
                         Content = x.Content,
                         ContentType = x.ContentType,
                         Order = x.Order,
-                    }).ToList(),
-                    PublishDate = entity.PublishDate,
-                    Summary = entity.Summary,
-                    Title = entity.Title    
-                }
+                    }).ToList()
+                
             };
         }
     }

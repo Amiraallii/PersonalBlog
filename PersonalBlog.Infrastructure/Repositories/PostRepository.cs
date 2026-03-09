@@ -20,19 +20,32 @@ namespace Personal.Infrastructure.Repositories
             await _context.Posts.AddAsync(post, ct);
         }
 
+        public async Task DeletePost(Guid id, CancellationToken ct)
+        {
+            var rows = await _context.Posts
+                .Where(x => x.Id == id)
+                .ExecuteDeleteAsync(ct);
+
+            if (rows == 0)
+            {
+                throw new KeyNotFoundException();
+            }
+        }
+
         public IQueryable<Post> GetAllPosts()
         {
             return _context.Posts
-                .AsNoTracking()
-                .Include(x => x.PostContents);
+                .AsNoTracking();
 
         }
 
         public async Task<Post> GetPostById(Guid id, CancellationToken ct)
         {
-            var entity = await _context.Posts.FindAsync([id]);
+            var entity = await _context.Posts
+                .Include(x => x.PostContents)
+                .FirstOrDefaultAsync(x => x.Id == id, ct);
             if (entity == null)
-                return null;
+                throw new KeyNotFoundException();
 
             return entity;
 
@@ -40,11 +53,17 @@ namespace Personal.Infrastructure.Repositories
 
         public async Task<Post> GetPostByIdNoTracking(Guid id, CancellationToken ct)
         {
-            var entity = await _context.Posts.Include(x=> x.PostContents).AsNoTracking().FirstOrDefaultAsync(x=> x.Id == id);
+            var entity = await _context.Posts
+                .Include(x => x.PostContents
+                .OrderBy(x => x.Order))
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id, ct);
             if (entity == null)
-                return null;
+                throw new KeyNotFoundException();
 
             return entity;
         }
+
+
     }
 }

@@ -5,25 +5,17 @@ using Personal.Domain.Contracts;
 using Personal.Domain.Entity;
 using Personal.Domain.Enums;
 
-namespace Personal.Application.Features.Post.Command.AddPost
+namespace PersonalBlog.Application.Features.Post.Command.UpdatePost
 {
-    public class AddPostCommandHandler(IUnitOfWork unitOfWork, IFileService fileService) : IRequestHandler<AddPostCommand>
+    public class UpdatePostHandler(IUnitOfWork unitOfWork, IFileService fileService) :
+        IRequestHandler<UpdatePostCommand>
     {
-        public async Task Handle(AddPostCommand request, CancellationToken ct)
+        public async Task Handle(UpdatePostCommand request, CancellationToken ct)
         {
-
+            var post = await unitOfWork.PostRepository.GetPostById(request.Id, ct);
+            post.PostContents.Clear();
             var coverImagePath = await fileService
-                .SaveFileAsync(new FileDto { FileStream = request.CoverImage, FileName = request.CoverImageName }, ct);
-
-            var post = new Domain.Entity.Post
-            (
-                request.Title,
-                request.Summary,
-                request.AuthorId,
-                coverImagePath,
-                request.PublishDate
-
-            );
+                    .SaveFileAsync(new FileDto { FileStream = request.CoverImage, FileName = request.CoverImageName }, ct);
             foreach (var blockCommand in request.PostContents.OrderBy(b => b.Order))
             {
                 string finalContent = string.Empty;
@@ -36,8 +28,7 @@ namespace Personal.Application.Features.Post.Command.AddPost
                 {
                     if (blockCommand.Media != null)
                     {
-                        var mediaPath = await fileService
-                            .SaveFileAsync(new FileDto { FileStream = blockCommand.Media, FileName = blockCommand.FileName }, ct);
+                        var mediaPath = await fileService.SaveFileAsync(new FileDto { FileStream = blockCommand.Media, FileName = blockCommand.FileName }, ct);
                         finalContent = mediaPath;
                     }
                 }
@@ -52,12 +43,8 @@ namespace Personal.Application.Features.Post.Command.AddPost
                 post.AddContentBlock(newBlock);
 
             }
-            await unitOfWork.PostRepository.AddPost(post, ct);
+            post.UpdatePost(request.Title, request.Summary, coverImagePath, request.PublishDate);
             await unitOfWork.SaveChangesAsync(ct);
-
-
         }
-
-
     }
 }

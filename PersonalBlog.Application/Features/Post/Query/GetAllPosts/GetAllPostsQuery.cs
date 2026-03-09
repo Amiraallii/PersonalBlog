@@ -4,7 +4,7 @@ using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Post.Query.GetAllPosts
 {
-    public class GetAllPostsQuery : ResultFilter, IRequest<ResultDto<IReadOnlyList<PostDto>>>
+    public class GetAllPostsQuery : ResultFilter, IRequest<IReadOnlyList<PostDto>>
     {
     }
 }

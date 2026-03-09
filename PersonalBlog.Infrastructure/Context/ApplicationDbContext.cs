@@ -2,6 +2,7 @@
 using Personal.Domain.Entity;
 using BCrypt.Net;
 using Personal.Domain.Contracts;
+using PersonalBlog.Domain.Entity;
 
 namespace Personal.Infrastructure.Context
 {
@@ -12,6 +13,7 @@ namespace Personal.Infrastructure.Context
         public DbSet<User> Users => Set<User>();
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<Post> Posts => Set<Post>();
+        public DbSet<Project> Projects => Set<Project>();
         public DbSet<Comment> Comments => Set<Comment>();
         public DbSet<PostContentBlock> PostContentBlocks => Set<PostContentBlock>();
 

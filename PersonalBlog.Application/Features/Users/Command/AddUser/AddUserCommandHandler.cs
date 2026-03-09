@@ -6,19 +6,20 @@ using Personal.Domain.Enums;
 
 namespace PersonalBlog.Application.Features.Users.Command.AddUser
 {
-    public class AddUserCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<AddUserCommand, ResultDto>
+    public class AddUserCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<AddUserCommand>
     {
-        public async Task<ResultDto> Handle(AddUserCommand request, CancellationToken ct)
+        public async Task Handle(AddUserCommand request, CancellationToken ct)
         {
             var existingEmail = await unitOfWork.UserRepository.GetUserByEmailAsync(request.Email, ct);
             if (existingEmail != null)
             {
-                return new ResultDto { IsSuccess = false, Message = "ایمیل تکراری است" };
+                throw new InvalidDataException();
             }
             var existingUser = await unitOfWork.UserRepository.GetUserByUserNameAsync(request.UserName, ct);
             if (existingUser != null)
             {
-                return new ResultDto { IsSuccess = false, Message = "نام کاربری تکراری است" };
+                throw new InvalidDataException();
+
             }
             var userRole = await unitOfWork.UserRepository.GetRoleByNameAsync(UserRole.User.ToString(), ct);
 
@@ -35,7 +36,6 @@ namespace PersonalBlog.Application.Features.Users.Command.AddUser
             await unitOfWork.UserRepository.AddUserAsync(user, ct);
 
             await unitOfWork.SaveChangesAsync(ct);
-            return new ResultDto { IsSuccess = true, Message = "کاربر با موفقیت ساخته شد" };
 
         }
     }

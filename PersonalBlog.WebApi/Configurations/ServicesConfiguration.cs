@@ -3,6 +3,8 @@ using Personal.Application.IServices;
 using Personal.Domain.Contracts;
 using Personal.Infrastructure.Repositories;
 using PersonalBlog.Application.IServices;
+using PersonalBlog.Domain.Contracts;
+using PersonalBlog.Infrastructure.Repositories;
 using PersonalBlog.Infrastructure.Shared.Authentication.JWT;
 using PersonalBlog.Infrastructure.Shared.FileServices;
 
@@ -10,7 +12,7 @@ namespace Personal.WebApi.Configurations
 {
     public static class ServicesConfiguration
     {
-        
+
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
@@ -19,7 +21,7 @@ namespace Personal.WebApi.Configurations
             services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPostRepository, PostRepository>();
-
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
 
@@ -30,12 +32,13 @@ namespace Personal.WebApi.Configurations
 
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(policy =>
-                {
-                    policy.WithOrigins("http://localhost:1669")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
+                options.AddPolicy("AllowReactApp",
+                        builder =>
+                        {
+                            builder.WithOrigins("http://localhost:3000")
+                                   .AllowAnyHeader()
+                                   .AllowAnyMethod();
+                        });
             });
 
             return services;

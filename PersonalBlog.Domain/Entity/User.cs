@@ -29,6 +29,7 @@
 
         #region ' Relations '
         public Role Role { get; private set; }
+        public IEnumerable<Post> Posts { get; private set; }
         #endregion ' Relations '
 
 

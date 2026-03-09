@@ -4,7 +4,7 @@ using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Post.Query.GetPostById
 {
-    public class GetPostByIdQuery : IRequest<ResultDto<PostDto>>
+    public class GetPostByIdQuery : IRequest<PostDto>
     {
         public Guid Id { get; set; }
     }

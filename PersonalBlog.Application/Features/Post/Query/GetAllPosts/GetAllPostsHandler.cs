@@ -6,60 +6,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PersonalBlog.Application.Features.Post.Query.GetAllPosts
 {
-    public class GetAllPostsHandler(IPostRepository postRepository) : IRequestHandler<GetAllPostsQuery, ResultDto<IReadOnlyList<PostDto>>>
+    public class GetAllPostsHandler(IPostRepository postRepository) : IRequestHandler<GetAllPostsQuery, IReadOnlyList<PostDto>>
     {
-        public async Task<ResultDto<IReadOnlyList<PostDto>>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<PostDto>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
         {
-            try
-            {
-                var query = postRepository.GetAllPosts();
-                if (!await query.AnyAsync())
-                    return new ResultDto<IReadOnlyList<PostDto>>
-                    {
-                        IsSuccess = true,
-                        Code = 200,
-                        Message = "محتوایی وجود ندارد",
-                        Date = DateTime.UtcNow,
-                    };
 
-                var skip = (request.Skip - 1) * request.Size;
-                var result = await query
-                    .OrderByDescending(x => x.PublishDate)
-                    .Skip(skip)
-                    .Take(request.Size)
-                    .Select(x => new PostDto
-                    {
-                        CoverImageAddress = x.CoverImageAdd,
-                        Id = x.Id,
-                        Summary = x.Summary,
-                        PostContents = x.PostContents.Select(x => new ContentBlocksDto
-                        {
-                            Content = x.Content,
-                            ContentType = x.ContentType
-                        }).ToList(),
-                        PublishDate = x.PublishDate,
-                        Title = x.Title
+            var query = postRepository.GetAllPosts();
+            if (!await query.AnyAsync())
+                throw new KeyNotFoundException();
 
-                    }).ToListAsync(cancellationToken);
-                return new ResultDto<IReadOnlyList<PostDto>>
+            var skip = (request.Skip - 1) * request.Size;
+
+            var result = await query
+                .OrderByDescending(x => x.PublishDate)
+                .Skip(skip)
+                .Take(request.Size)
+                .Select(x => new PostDto
                 {
-                    IsSuccess = true,
-                    Code = 200,
-                    Value = result
+                    Id = x.Id,
+                    Title = x.Title,
+                    Summary = x.Summary,
+                    CoverImageAddress = x.CoverImageAdd,
+                    PublishDate = x.PublishDate,
 
-                };
-            }
-            catch (Exception ex)
-            {
+                }).ToListAsync(cancellationToken);
 
-                return new ResultDto<IReadOnlyList<PostDto>>
-                {
-                    IsSuccess = false,
-                    Code = 500,
-                    Message = ex.Message,
-                    Date = DateTime.UtcNow,
-                };
-            }
+            return result;
+
 
         }
     }

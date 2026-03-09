@@ -1,9 +1,12 @@
-﻿namespace Personal.Domain.Contracts
+﻿using PersonalBlog.Domain.Contracts;
+
+namespace Personal.Domain.Contracts
 {
     public interface IUnitOfWork
     {
         IUserRepository UserRepository { get; }
         IPostRepository PostRepository { get; }
+        IProjectRepository ProjectRepository { get; }
         Task<int> SaveChangesAsync(CancellationToken ct = default);
     }
 }

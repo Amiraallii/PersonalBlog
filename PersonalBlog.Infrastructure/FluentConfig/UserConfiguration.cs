@@ -30,6 +30,12 @@ namespace Personal.Infrastructure.FluentConfig
             builder.HasOne(u => u.Role)
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId);
+
+
+            builder.HasMany(x=> x.Posts)
+                .WithOne(x=> x.Author)
+                .HasForeignKey(x=> x.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
