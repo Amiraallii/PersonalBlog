@@ -50,9 +50,5 @@ namespace PersonalBlog.Infrastructure.Repositories
             return entity;
         }
 
-        public async Task UpdateProject(Project project)
-        {
-            _context.Update(project);
-        }
     }
 }

@@ -10,6 +10,7 @@ namespace Personal.Domain.Contracts
         Task<Role> GetRoleByNameAsync(string roleName, CancellationToken ct);
         Task<IQueryable<User>> GetAllUsers(CancellationToken ct);
         Task<User> GetUserByIdAsync(Guid id, CancellationToken ct);
+        Task<User> GetUserByRefreshTokenAsync(string token, CancellationToken ct);
         Task DeleteUserByIdAsync(Guid id, CancellationToken ct);
         Task UpdateUserAsync(User model, CancellationToken ct);
         Task<bool> IsEmailOrUsernameTakenAsync(Guid userId, string email, string userName, CancellationToken ct);

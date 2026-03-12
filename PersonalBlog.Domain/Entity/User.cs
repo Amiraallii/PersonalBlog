@@ -15,6 +15,7 @@
             FullName = fullName;
             RoleId = roleId;
             Role = role;
+
         }
 
 
@@ -26,7 +27,8 @@
         public string PasswordHash { get; private set; }
         public string FullName { get; private set; }
         public Guid RoleId { get; private set; }
-
+        public string? RefreshToken { get; private set; }
+        public DateTime? RefreshTokenExpireDate { get; private set; }
         #region ' Relations '
         public Role Role { get; private set; }
         public IEnumerable<Post> Posts { get; private set; }
@@ -47,7 +49,11 @@
         {
             PasswordHash = passwordHash;
         }
-        
+        public void UpsertToken(string refreshToken, DateTime refreshTokenExpireDate)
+        {
+            RefreshToken = refreshToken;
+            RefreshTokenExpireDate = refreshTokenExpireDate;
+        }
         #endregion ' Actions '
 
     }

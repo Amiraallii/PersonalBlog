@@ -6,7 +6,6 @@ namespace PersonalBlog.Domain.Contracts
     public interface IProjectRepository
     {
         Task AddProjectAsync(Project project, CancellationToken ct);
-        Task UpdateProject(Project project);
         Task DeleteProjectAsync(int id, CancellationToken ct);
         IQueryable<Project> GetAllProject();
         Task<Project> GetProjectByIdAsync(int id, CancellationToken ct);

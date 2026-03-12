@@ -2,6 +2,7 @@
 using Personal.Application.Dtos;
 using Personal.Domain.Contracts;
 using PersonalBlog.Application.IServices;
+using System.Security.Cryptography;
 
 namespace Personal.Application.Features.Authentication.Commands.Login
 {
@@ -24,13 +25,17 @@ namespace Personal.Application.Features.Authentication.Commands.Login
             {
                 return new AuthResultDto { Success = false, Errors = ["نام کاربری یا رمز عبور اشتباه است!"] };
             }
+
+            var refreshToken = jwtTokenGenerator.GenerateRefreshToken();
+            user.UpsertToken(refreshToken, DateTime.UtcNow.AddDays(30));
             return new AuthResultDto
             {
                 Success = true,
                 Token = jwtTokenGenerator.GenerateToken(user),
+                RefreshToken = refreshToken
             };
         }
-
+        
 
     }
 }

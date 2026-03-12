@@ -14,8 +14,6 @@ namespace PersonalBlog.Application.Features.Project.Command.UpdateProject
 
             entity.UpdateProject(request.Title, request.Summary, request.Owner, request.Link, request.StartDate, request.EndDate);
 
-            await unitOfWork.ProjectRepository.UpdateProject(entity);
-
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }

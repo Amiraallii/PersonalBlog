@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Personal.Application.Dtos;
 using Personal.Application.Features.Post.Command.AddPost;
@@ -11,6 +12,7 @@ using System.Security.Claims;
 
 namespace Personal.WebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController(IMediator mediator) : PersonalController
@@ -20,6 +22,9 @@ namespace Personal.WebApi.Controllers
         [HttpPost("AddPost")]
         public async Task<IActionResult> AddPost([FromForm] AddPostDto post)
         {
+            var claims = User.Claims.Select(x => new { x.Type, x.Value }).ToList();
+
+            var x = CurrentUserId;
             var command = new AddPostCommand
             {
                 Title = post.Title,
@@ -106,7 +111,6 @@ namespace Personal.WebApi.Controllers
 
             return Ok(result);
 
-            return BadRequest(result);
 
         }
     }

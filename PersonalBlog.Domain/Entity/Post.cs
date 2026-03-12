@@ -25,7 +25,7 @@
         #region ' Relations '
         public ICollection<Comment> Comments { get; private set; } 
         public User Author { get; private set; }
-        public ICollection<PostContentBlock> PostContents { get; private set; }
+        public ICollection<PostContentBlock> PostContents { get; private set; } = new List<PostContentBlock>();
         #endregion ' Relations '
 
         #region ' Actions '

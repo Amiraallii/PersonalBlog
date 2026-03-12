@@ -9,6 +9,8 @@
         public string FullName { get; set; }
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpireDate { get; set; }
     }
 
     public class EditUsersDto

@@ -69,5 +69,11 @@ namespace Personal.Infrastructure.Repositories
             return await context.Users
                 .AnyAsync(x => x.Id != userId && (x.Email == email || x.UserName == userName), ct);
         }
+
+        public async Task<User> GetUserByRefreshTokenAsync(string token, CancellationToken ct)
+        {
+            return await context.Users
+                                .FirstOrDefaultAsync(u => u.RefreshToken == token, ct);
+        }
     }
 }

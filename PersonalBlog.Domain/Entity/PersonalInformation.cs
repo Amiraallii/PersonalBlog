@@ -7,6 +7,7 @@ namespace PersonalBlog.Domain.Entity
         public string Name { get; set; }
         public string LastName { get; set; }
         public string JobTitle { get; set; }
+        public string AboutMe { get; set; }
 
     }
 }
