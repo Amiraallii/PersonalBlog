@@ -22,12 +22,12 @@ namespace PersonalBlog.Domain.Entity
 
         #endregion ` Consructor '
 
-        public string Title { get; set; }
-        public string Summary { get; set; }
-        public string Owner { get; set; }
-        public string Link { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public string Title { get; private set; }
+        public string Summary { get; private set; }
+        public string Owner { get; private set; }
+        public string Link { get; private set; }
+        public DateTime StartDate { get; private set; }
+        public DateTime? EndDate { get; private set; }
 
         #region ' Acctions '
 
