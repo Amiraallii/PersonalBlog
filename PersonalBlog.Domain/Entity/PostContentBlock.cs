@@ -22,11 +22,7 @@ namespace Personal.Domain.Entity
         public ContentTypeEnum ContentType { get; private set; } 
         public string Content { get; private set; }
 
-        #region ' Actions '
-
-
-
-        #endregion ' Actions '
+      
 
     }
 }

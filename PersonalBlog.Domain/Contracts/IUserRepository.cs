@@ -12,7 +12,7 @@ namespace Personal.Domain.Contracts
         Task<User> GetUserByIdAsync(Guid id, CancellationToken ct);
         Task<User> GetUserByRefreshTokenAsync(string token, CancellationToken ct);
         Task DeleteUserByIdAsync(Guid id, CancellationToken ct);
-        Task UpdateUserAsync(User model, CancellationToken ct);
+        Task UpdateUserAsync(User model);
         Task<bool> IsEmailOrUsernameTakenAsync(Guid userId, string email, string userName, CancellationToken ct);
     }
 }

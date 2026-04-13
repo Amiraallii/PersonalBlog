@@ -1,4 +1,5 @@
 ﻿using PersonalBlog.Domain.Contracts;
+using PersonalBlog.Domain.Entity;
 
 namespace Personal.Domain.Contracts
 {
@@ -7,6 +8,7 @@ namespace Personal.Domain.Contracts
         IUserRepository UserRepository { get; }
         IPostRepository PostRepository { get; }
         IProjectRepository ProjectRepository { get; }
+        IPersonalInformationRepository PersonalInformationRepository { get; }
         Task<int> SaveChangesAsync(CancellationToken ct = default);
     }
 }

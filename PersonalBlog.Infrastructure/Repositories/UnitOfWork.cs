@@ -10,18 +10,21 @@ namespace Personal.Infrastructure.Repositories
         public IUserRepository UserRepository { get; }
         public IPostRepository PostRepository { get; }
         public IProjectRepository ProjectRepository { get; }
+        public IPersonalInformationRepository PersonalInformationRepository { get; }
 
         public UnitOfWork(
             ApplicationDbContext context,
             IUserRepository userRepository,
             IPostRepository postRepository,
-            IProjectRepository projectRepository
+            IProjectRepository projectRepository,
+            IPersonalInformationRepository personalInformationRepository
             )
         {
             _context = context;
             UserRepository = userRepository;
             PostRepository = postRepository;
             ProjectRepository = projectRepository;
+            PersonalInformationRepository = personalInformationRepository;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken ct = default)

@@ -25,4 +25,9 @@
     <ProjectReference Include="..\PersonalBlog.Domain\PersonalBlog.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\PersonalInformation\Command\UpdatePersonalInformation\" />
+    <Folder Include="Features\PersonalInformation\Query\GetPersonalInformation\" />
+  </ItemGroup>
+
 </Project>

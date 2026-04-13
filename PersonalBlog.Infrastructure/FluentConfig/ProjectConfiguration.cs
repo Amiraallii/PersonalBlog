@@ -8,6 +8,8 @@ namespace PersonalBlog.Infrastructure.FluentConfig
     {
         public void Configure(EntityTypeBuilder<Project> builder)
         {
+            builder.ToTable("Projects", "Project");
+
             builder.HasKey(e => e.Id);
 
             builder.Property(x=> x.Summary)
