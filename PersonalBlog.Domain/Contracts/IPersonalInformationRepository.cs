@@ -4,8 +4,8 @@ namespace PersonalBlog.Domain.Contracts
 {
     public interface IPersonalInformationRepository
     {
-        Task<byte> CreatePersonalInformation(PersonalInformation personalInformation, CancellationToken ct);
-        IQueryable<PersonalInformation> GetPersonalInformation();
-        Task UpdatePersonalInformation(PersonalInformation personalInformation);
+        Task UpsertPersonalInformationAsync(PersonalInformation personalInformation, CancellationToken ct);
+        Task<PersonalInformation> GetPersonalInformationAsync(CancellationToken ct);
+        Task<PersonalInformation> GetPersonalInformationNoTrackingAsync(CancellationToken ct);
     }
 }

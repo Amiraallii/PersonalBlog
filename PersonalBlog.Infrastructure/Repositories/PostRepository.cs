@@ -8,7 +8,7 @@ namespace Personal.Infrastructure.Repositories
 {
     public class PostRepository(ApplicationDbContext _context) : IPostRepository
     {
-       
+        
 
         public async Task AddPost(Post post, CancellationToken ct)
         {

@@ -8,7 +8,7 @@ namespace PersonalBlog.Infrastructure.FluentConfig
     {
         public void Configure(EntityTypeBuilder<PersonalInformation> builder)
         {
-            builder.ToTable("PersonalInformations", "Info");
+            builder.ToTable("PersonalInformation", "Info");
 
             builder.HasKey(x => x.Id);
 
@@ -16,24 +16,22 @@ namespace PersonalBlog.Infrastructure.FluentConfig
                 .HasMaxLength(100)
                 .IsRequired(true);
 
-            builder.Property(x=> x.LastName)
+            builder.Property(x => x.LastName)
                 .HasMaxLength(150)
                 .IsRequired(true);
 
-            builder.Property(x=> x.JobTitle)
-                .HasMaxLength(500)
-                .IsRequired(true);
-
             builder.Property(x => x.AboutMe)
-                .HasMaxLength(1000)
+                .HasMaxLength(1500)
                 .IsRequired(true);
 
-            builder.HasMany(x=> x.ContactInfos)
-                .WithOne(x=> x.PersonalInformation)
-                .HasForeignKey(x=>x.PersonalInformationId)
+            builder.Property(x => x.JobTitle)
+                .HasMaxLength(300)
+                .IsRequired(true);
+
+            builder.HasMany(x => x.ContactInfos)
+                .WithOne(x => x.PersonalInformation)
+                .HasForeignKey(x => x.PersonalInformationId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-
         }
     }
 }

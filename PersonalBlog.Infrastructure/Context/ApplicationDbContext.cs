@@ -16,8 +16,8 @@ namespace Personal.Infrastructure.Context
         public DbSet<Project> Projects => Set<Project>();
         public DbSet<Comment> Comments => Set<Comment>();
         public DbSet<PostContentBlock> PostContentBlocks => Set<PostContentBlock>();
-        public DbSet<ContactInfo> ContactInfos => Set<ContactInfo>();
         public DbSet<PersonalInformation> PersonalInformations => Set<PersonalInformation>();
+        public DbSet<ContactInfo> ContactInfos => Set<ContactInfo>();
 
 
 

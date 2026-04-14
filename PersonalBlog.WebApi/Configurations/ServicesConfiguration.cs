@@ -23,6 +23,7 @@ namespace Personal.WebApi.Configurations
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPersonalInformationRepository, PersonalInformationRepository>();
             services.AddScoped<IFileCompressorService, FileCompressorService>();
 
 

@@ -8,21 +8,16 @@ namespace PersonalBlog.Infrastructure.FluentConfig
     {
         public void Configure(EntityTypeBuilder<ContactInfo> builder)
         {
-            builder.ToTable("ContactInfos", "Info");
+            builder.ToTable("ContactInfo", "Info");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.ContactWay)
-                .HasMaxLength(500)
+                .HasMaxLength(100)
                 .IsRequired(true);
 
             builder.Property(x => x.ContactWayType)
                 .IsRequired(true);
-
-            builder.HasOne(x=> x.PersonalInformation)
-                .WithMany(x=> x.ContactInfos)
-                .HasForeignKey(x=>x.PersonalInformationId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

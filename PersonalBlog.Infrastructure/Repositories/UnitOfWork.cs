@@ -1,6 +1,7 @@
 ﻿using Personal.Domain.Contracts;
 using Personal.Infrastructure.Context;
 using PersonalBlog.Domain.Contracts;
+using PersonalBlog.Domain.Entity;
 
 namespace Personal.Infrastructure.Repositories
 {

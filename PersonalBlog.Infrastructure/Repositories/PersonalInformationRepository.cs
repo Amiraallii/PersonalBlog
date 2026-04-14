@@ -7,23 +7,27 @@ namespace PersonalBlog.Infrastructure.Repositories
 {
     public class PersonalInformationRepository(ApplicationDbContext _context) : IPersonalInformationRepository
     {
-        public async Task<byte> CreatePersonalInformation(PersonalInformation personalInformation, CancellationToken ct)
+        public async Task UpsertPersonalInformationAsync(PersonalInformation personalInformation, CancellationToken ct)
         {
-            await _context.PersonalInformations.AddAsync(personalInformation, ct);
+            await _context.PersonalInformations.ExecuteDeleteAsync(ct);
 
-            return personalInformation.Id;
+            await _context.PersonalInformations.
+                AddAsync(personalInformation, ct);
         }
 
-        public IQueryable<PersonalInformation> GetPersonalInformation()
+        public async Task<PersonalInformation> GetPersonalInformationAsync(CancellationToken ct)
         {
-            return _context.PersonalInformations
+            return await _context.PersonalInformations
                 .Include(x => x.ContactInfos)
-                .AsNoTracking();
+                .FirstOrDefaultAsync(ct);
         }
 
-        public async Task UpdatePersonalInformation(PersonalInformation personalInformation)
+        public async Task<PersonalInformation> GetPersonalInformationNoTrackingAsync(CancellationToken ct)
         {
-             _context.Update(personalInformation);
+            return await _context.PersonalInformations
+                .Include(x=> x.ContactInfos)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(ct);
         }
     }
 }

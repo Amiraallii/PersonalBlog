@@ -4,43 +4,43 @@ namespace PersonalBlog.Domain.Entity
 {
     public class PersonalInformation : Common<byte>
     {
-        #region ' Consructors '
-        private PersonalInformation() { }
+        #region ' Constructor '
+        private PersonalInformation()
+        {
+        }
 
-        public PersonalInformation(string name, string lastName, string jobTitle, string aboutMe)
+        public PersonalInformation(string name, string lastName, string jobTitle, string aboutMe, List<ContactInfo> contactInfos)
         {
             Name = name;
             LastName = lastName;
             JobTitle = jobTitle;
             AboutMe = aboutMe;
+            ContactInfos = contactInfos;
         }
 
-        #endregion ' Consructors '
+        #endregion ' Constructor '
 
         public string Name { get; private set; }
         public string LastName { get; private set; }
         public string JobTitle { get; private set; }
         public string AboutMe { get; private set; }
 
-        #region ' Relations '
+        #region ' Relation '
         public ICollection<ContactInfo> ContactInfos { get; private set; } = new List<ContactInfo>();
-        #endregion ' Relations '
+        #endregion ' Relation '
 
-        #region ' Actions '
-        public void AddContactInfo(ContactInfo contactInfo)
-        {
-            ContactInfos.Add(contactInfo);
-        }
+        #region ' Action '
+        
 
-        public void UpdatePersonalInformation(string name, string lastName, string jobTitle, string aboutMe)
+        public void UpdatePersonalInfo(string name, string lastName, string jobTitle, string aboutMe, List<ContactInfo> contactInfos)
         {
             Name = name;
             LastName = lastName;
             JobTitle = jobTitle;
             AboutMe = aboutMe;
             ContactInfos.Clear();
+            ContactInfos = contactInfos;
         }
-        #endregion ' Actions '
-
+        #endregion ' Action '
     }
 }
