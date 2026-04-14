@@ -3,6 +3,7 @@ using Personal.Application.Dtos;
 using Personal.Domain.Contracts;
 using PersonalBlog.Application.IServices;
 using System.Security.Cryptography;
+using System.Threading;
 
 namespace Personal.Application.Features.Authentication.Commands.Login
 {
@@ -28,6 +29,8 @@ namespace Personal.Application.Features.Authentication.Commands.Login
 
             var refreshToken = jwtTokenGenerator.GenerateRefreshToken();
             user.UpsertToken(refreshToken, DateTime.UtcNow.AddDays(30));
+            await unitOfWork.SaveChangesAsync(ct);
+
             return new AuthResultDto
             {
                 Success = true,

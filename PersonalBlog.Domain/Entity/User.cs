@@ -54,6 +54,12 @@
             RefreshToken = refreshToken;
             RefreshTokenExpireDate = refreshTokenExpireDate;
         }
+
+        public void Logout()
+        {
+            RefreshToken = null;
+            RefreshTokenExpireDate = null;
+        }
         #endregion ' Actions '
 
     }

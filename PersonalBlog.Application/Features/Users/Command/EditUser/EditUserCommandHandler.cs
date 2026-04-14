@@ -21,7 +21,7 @@ namespace Personal.Application.Features.Users.Command.EditUser
                 }
                 user.UpdateUserInfo(request.Email, request.UserName, request.FullName, user.RoleId);
 				
-                await _userRepository.UpdateUserAsync(user, cancellationToken);
+                await _userRepository.UpdateUserAsync(user);
 				await unitOfWork.SaveChangesAsync();
 
 			}

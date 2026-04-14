@@ -1,16 +1,18 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Personal.Application.Dtos;
 using Personal.Application.Features.Authentication.Commands.Login;
 using Personal.Application.Features.Authentication.Commands.Register;
+using PersonalBlog.Application.Features.Authentication.Commands.Logout;
 using PersonalBlog.Application.Features.Authentication.Commands.RefreshToken;
+using PersonalBlog.WebApi.Controllers;
 
 namespace Personal.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController(IMediator mediator) : ControllerBase
+    public class AuthController(IMediator mediator) : PersonalController
     {
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterDto registerDto, CancellationToken ct)
@@ -35,6 +37,7 @@ namespace Personal.WebApi.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDto loginDto, CancellationToken ct)
         {
+            var c = CurrentUserId;
             var command = new LoginCommand
             {
                 Password = loginDto.Password,
@@ -70,6 +73,14 @@ namespace Personal.WebApi.Controllers
                 accessToken = result.Token,
                 refreshToken = result.RefreshToken
             });
+        }
+
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout(CancellationToken ct)
+        {
+            var command = new LogoutCommand { Id = CurrentUserId };
+            await mediator.Send(command);
+            return Ok();    
         }
     }
 }
