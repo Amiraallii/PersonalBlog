@@ -10,7 +10,7 @@ namespace PersonalBlog.WebApi.Controllers
     [Route("[controller]")]
     public class PersonalInformationController(IMediator mediator) : PersonalController
     {
-        [HttpPost]
+        [HttpPost("ModifyInfo")]
         public async Task<IActionResult> UpsertPersonalInformation(PersonalInformationDto model, CancellationToken ct)
         {
             var command = new UpsertPersonalInformationCommand
