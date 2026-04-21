@@ -24,10 +24,10 @@ namespace Personal.Application.Features.Authentication.Commands.Register
 
             var user = new User
             (
-                request.FullName,
                 request.Email,
                 request.UserName,
                 BCrypt.Net.BCrypt.HashPassword(request.Password),
+                request.FullName,
                 userRole.Id,
                 userRole
             );

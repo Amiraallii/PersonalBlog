@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Personal.Application.Dtos;
 using Personal.Application.Features.Post.Command.AddPost;
 using PersonalBlog.Application.Dtos;
+using PersonalBlog.Application.Features.Post.Command.DeletePost;
 using PersonalBlog.Application.Features.Post.Command.UpdatePost;
 using PersonalBlog.Application.Features.Post.Query.GetAllPosts;
 using PersonalBlog.Application.Features.Post.Query.GetPostById;
@@ -12,13 +13,12 @@ using System.Security.Claims;
 
 namespace Personal.WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController(IMediator mediator) : PersonalController
     {
 
-
+        [Authorize]
         [HttpPost("AddPost")]
         public async Task<IActionResult> AddPost([FromForm] AddPostDto post)
         {
@@ -49,6 +49,7 @@ namespace Personal.WebApi.Controllers
 
         }
 
+        [Authorize]
         [HttpPut("UpdatePost")]
         public async Task<IActionResult> UpdatePost([FromForm] UpdatePostDto post)
         {
@@ -80,11 +81,11 @@ namespace Personal.WebApi.Controllers
         [HttpDelete("DeletePost")]
         public async Task<IActionResult> DeletePost(Guid id)
         {
-            var query = new GetPostByIdQuery { Id = id };
+            var query = new DeletePostCommand { Id = id };
 
-            var result = await mediator.Send(query);
+            await mediator.Send(query);
 
-            return Ok(result);
+            return Ok();
 
         }
 

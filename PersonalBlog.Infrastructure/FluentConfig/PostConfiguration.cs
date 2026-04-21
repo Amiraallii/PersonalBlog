@@ -23,7 +23,7 @@ namespace Personal.Infrastructure.FluentConfig
             builder.HasMany(x=> x.PostContents)
                 .WithOne(x => x.Post)
                 .HasForeignKey(x => x.PostId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Author)
                 .WithMany(x=> x.Posts)

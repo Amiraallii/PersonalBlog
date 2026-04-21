@@ -1,11 +1,14 @@
+using Amazon.S3;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Personal.Infrastructure.Context;
 using Personal.WebApi.Configurations;
 using Personal.WebApi.Extensions;
 using Personal.WebApi.Middlewares;
-using System.Text;
+using PersonalBlog.Application.Options;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PersonalBlogConnection")));
 
 builder.Services.AddApplicationServices();
+var settings = new PersonalSettings();
+builder.Configuration.GetSection("Settings").Bind(settings);
+builder.Services.AddSingleton(settings);
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
@@ -27,17 +33,28 @@ builder.Services.AddAuthentication("Bearer")
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = settings.Jwt.Issuer,
+            ValidAudience = settings.Jwt.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+                Encoding.UTF8.GetBytes(settings.Jwt.Key!)
             )
         };
     });
+
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .CreateLogger();
+
+builder.Services.AddSingleton<IAmazonS3>(s3 =>
+{
+    var cfg = new AmazonS3Config
+    {
+        ServiceURL = settings.S3Storage.ServiceUrl,
+        ForcePathStyle = true,
+    };
+    return new AmazonS3Client(settings.S3Storage.AccessKey, settings.S3Storage.SecretKey, cfg);
+});
 
 builder.Host.UseSerilog();
 

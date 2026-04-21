@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Application.Dtos;
 using PersonalBlog.Application.Features.PersonalInformation.Command.UpsertPersonalInformation;
@@ -10,6 +11,7 @@ namespace PersonalBlog.WebApi.Controllers
     [Route("[controller]")]
     public class PersonalInformationController(IMediator mediator) : PersonalController
     {
+        [Authorize]
         [HttpPost("ModifyInfo")]
         public async Task<IActionResult> UpsertPersonalInformation(PersonalInformationDto model, CancellationToken ct)
         {
