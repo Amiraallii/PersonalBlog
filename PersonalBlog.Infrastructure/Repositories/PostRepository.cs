@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personal.Domain.Contracts;
-using Personal.Domain.Entity;
-using Personal.Infrastructure.Context;
+using PersonalBlog.Domain.Entity;
+using PersonalBlog.Infrastructure.Context;
 using PersonalBlog.Application.Dtos;
 
-namespace Personal.Infrastructure.Repositories
+namespace PersonalBlog.Infrastructure.Repositories
 {
     public class PostRepository(ApplicationDbContext _context) : IPostRepository
     {

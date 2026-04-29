@@ -1,4 +1,4 @@
-﻿namespace Personal.Domain.Entity
+﻿namespace PersonalBlog.Domain.Entity
 {
     public class User : Common<Guid>
     {

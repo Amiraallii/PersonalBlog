@@ -2,7 +2,7 @@
 using Personal.Domain.Contracts;
 
 
-namespace Personal.Application.Features.Users.Command.DeleteUser
+namespace PersonalBlog.Application.Features.Users.Command.DeleteUser
 {
     public class DeleteUserCommandHandler(IUserRepository _userRepository) : IRequestHandler<DeleteUserCommand>
     {

@@ -1,4 +1,4 @@
-﻿using Personal.Domain.Entity;
+﻿using PersonalBlog.Domain.Entity;
 using PersonalBlog.Domain.Entity;
 
 namespace PersonalBlog.Domain.Contracts

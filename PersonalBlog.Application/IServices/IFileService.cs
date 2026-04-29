@@ -1,6 +1,6 @@
-﻿using Personal.Application.Dtos;
+﻿using PersonalBlog.Application.Dtos;
 
-namespace Personal.Application.IServices
+namespace PersonalBlog.Application.IServices
 {
     public interface IFileService
     {

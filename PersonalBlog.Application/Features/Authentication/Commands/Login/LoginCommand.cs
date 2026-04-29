@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 
-namespace Personal.Application.Features.Authentication.Commands.Login
+namespace PersonalBlog.Application.Features.Authentication.Commands.Login
 {
     public class LoginCommand : IRequest<AuthResultDto>
     {

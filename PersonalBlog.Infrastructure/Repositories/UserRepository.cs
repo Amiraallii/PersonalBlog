@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personal.Domain.Contracts;
-using Personal.Domain.Entity;
-using Personal.Infrastructure.Context;
+using PersonalBlog.Domain.Entity;
+using PersonalBlog.Infrastructure.Context;
 
-namespace Personal.Infrastructure.Repositories
+namespace PersonalBlog.Infrastructure.Repositories
 {
     public class UserRepository(ApplicationDbContext _context) : IUserRepository
     {

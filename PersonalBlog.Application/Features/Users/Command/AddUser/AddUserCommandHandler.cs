@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
-using Personal.Domain.Entity;
+using PersonalBlog.Domain.Entity;
 using Personal.Domain.Enums;
 
 namespace PersonalBlog.Application.Features.Users.Command.AddUser

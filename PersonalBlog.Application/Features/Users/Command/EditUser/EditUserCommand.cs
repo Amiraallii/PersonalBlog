@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 
-namespace Personal.Application.Features.Users.Command.EditUser
+namespace PersonalBlog.Application.Features.Users.Command.EditUser
 {
     public class EditUserCommand : EditUsersDto, IRequest
     {

@@ -1,17 +1,16 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
 using PersonalBlog.Application.IServices;
-using System.Security.Cryptography;
-using System.Threading;
+using PersonalBlog.Domain.Entity;
 
-namespace Personal.Application.Features.Authentication.Commands.Login
+namespace PersonalBlog.Application.Features.Authentication.Commands.Login
 {
     public class LoginCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<LoginCommand, AuthResultDto>
     {
         public async Task<AuthResultDto> Handle(LoginCommand request, CancellationToken ct)
         {
-            Domain.Entity.User user;
+            User user;
 
             if (request.LoginIdentifier.Contains('@'))
             {

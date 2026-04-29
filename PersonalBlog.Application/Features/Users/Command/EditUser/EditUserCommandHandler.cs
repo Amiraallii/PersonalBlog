@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Personal.Domain.Contracts;
 
-namespace Personal.Application.Features.Users.Command.EditUser
+namespace PersonalBlog.Application.Features.Users.Command.EditUser
 {
     public class EditUserCommandHandler(IUserRepository _userRepository, IUnitOfWork unitOfWork) : IRequestHandler<EditUserCommand>
     {

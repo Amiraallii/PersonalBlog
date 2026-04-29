@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Dtos
 {

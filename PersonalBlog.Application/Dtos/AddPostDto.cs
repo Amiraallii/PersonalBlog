@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Personal.Application.Dtos
+namespace PersonalBlog.Application.Dtos
 {
     public class AddPostDto
     {

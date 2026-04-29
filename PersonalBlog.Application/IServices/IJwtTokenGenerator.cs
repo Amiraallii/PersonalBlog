@@ -1,4 +1,4 @@
-﻿using Personal.Domain.Entity;
+﻿using PersonalBlog.Domain.Entity;
 using System.Security.Cryptography;
 
 namespace PersonalBlog.Application.IServices

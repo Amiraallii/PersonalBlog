@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
 using PersonalBlog.Application.IServices;
 

@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal.Domain.Entity;
-using BCrypt.Net;
-using Personal.Domain.Contracts;
 using PersonalBlog.Domain.Entity;
 
-namespace Personal.Infrastructure.Context
+namespace PersonalBlog.Infrastructure.Context
 {
     public class ApplicationDbContext : DbContext
     {

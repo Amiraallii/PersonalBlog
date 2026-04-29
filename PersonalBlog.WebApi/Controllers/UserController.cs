@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Personal.Application.Dtos;
-using Personal.Application.Features.Authentication.Commands.Register;
-using Personal.Application.Features.Users.Command.DeleteUser;
-using Personal.Application.Features.Users.Command.EditUser;
-using Personal.Application.Features.Users.Query.GetAllUsersQuery;
-using Personal.Application.Features.Users.Query.GetUsersById;
+using PersonalBlog.Application.Dtos;
+using PersonalBlog.Application.Features.Authentication.Commands.Register;
+using PersonalBlog.Application.Features.Users.Command.DeleteUser;
+using PersonalBlog.Application.Features.Users.Command.EditUser;
+using PersonalBlog.Application.Features.Users.Query.GetAllUsersQuery;
+using PersonalBlog.Application.Features.Users.Query.GetUsersById;
 using PersonalBlog.Application.Features.Users.Command.AddUser;
 
-namespace Personal.WebApi.Controllers
+namespace PersonalBlog.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

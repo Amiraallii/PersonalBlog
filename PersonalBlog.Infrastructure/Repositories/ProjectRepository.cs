@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal.Infrastructure.Context;
+using PersonalBlog.Infrastructure.Context;
 using PersonalBlog.Domain.Contracts;
 using PersonalBlog.Domain.Entity;
 

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Personal.Infrastructure.Context;
+using PersonalBlog.Infrastructure.Context;
 
 #nullable disable
 
-namespace Personal.Infrastructure.Migrations
+namespace PersonalBlog.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250725113418_InitialDb")]
@@ -25,7 +25,7 @@ namespace Personal.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Personal.Domain.Entity.Comments", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Comments", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace Personal.Infrastructure.Migrations
                     b.ToTable("Commnets", "Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.PostContentBlock", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.PostContentBlock", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace Personal.Infrastructure.Migrations
                     b.ToTable("PostContentBlocks", "Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Posts", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Posts", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,7 +111,7 @@ namespace Personal.Infrastructure.Migrations
                     b.ToTable("Posts", "Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Roles", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Roles", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,7 +144,7 @@ namespace Personal.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Users", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Users", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -198,9 +198,9 @@ namespace Personal.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Comments", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Comments", b =>
                 {
-                    b.HasOne("Personal.Domain.Entity.Posts", "Post")
+                    b.HasOne("PersonalBlog.Domain.Entity.Posts", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -209,9 +209,9 @@ namespace Personal.Infrastructure.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.PostContentBlock", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.PostContentBlock", b =>
                 {
-                    b.HasOne("Personal.Domain.Entity.Posts", "Post")
+                    b.HasOne("PersonalBlog.Domain.Entity.Posts", "Post")
                         .WithMany("ContentBlocks")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -220,9 +220,9 @@ namespace Personal.Infrastructure.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Users", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Users", b =>
                 {
-                    b.HasOne("Personal.Domain.Entity.Roles", "Role")
+                    b.HasOne("PersonalBlog.Domain.Entity.Roles", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -231,14 +231,14 @@ namespace Personal.Infrastructure.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Posts", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Posts", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("ContentBlocks");
                 });
 
-            modelBuilder.Entity("Personal.Domain.Entity.Roles", b =>
+            modelBuilder.Entity("PersonalBlog.Domain.Entity.Roles", b =>
                 {
                     b.Navigation("Users");
                 });

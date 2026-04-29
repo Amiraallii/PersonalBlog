@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Personal.Domain.Entity;
+using PersonalBlog.Domain.Entity;
 using Personal.Domain.Enums;
 using PersonalBlog.Application.IServices;
 using PersonalBlog.Application.Options;

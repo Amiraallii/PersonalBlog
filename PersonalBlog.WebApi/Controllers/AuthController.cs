@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-using Personal.Application.Dtos;
-using Personal.Application.Features.Authentication.Commands.Login;
-using Personal.Application.Features.Authentication.Commands.Register;
+using PersonalBlog.Application.Dtos;
+using PersonalBlog.Application.Features.Authentication.Commands.Login;
+using PersonalBlog.Application.Features.Authentication.Commands.Register;
 using PersonalBlog.Application.Features.Authentication.Commands.Logout;
 using PersonalBlog.Application.Features.Authentication.Commands.RefreshToken;
 using PersonalBlog.WebApi.Controllers;
 
-namespace Personal.WebApi.Controllers
+namespace PersonalBlog.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

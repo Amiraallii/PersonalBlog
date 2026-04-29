@@ -1,14 +1,14 @@
-﻿using Personal.Application.Features.Authentication.Commands.Login;
-using Personal.Application.IServices;
+﻿using PersonalBlog.Application.Features.Authentication.Commands.Login;
+using PersonalBlog.Application.IServices;
 using Personal.Domain.Contracts;
-using Personal.Infrastructure.Repositories;
+using PersonalBlog.Infrastructure.Repositories;
 using PersonalBlog.Application.IServices;
 using PersonalBlog.Domain.Contracts;
 using PersonalBlog.Infrastructure.Repositories;
 using PersonalBlog.Infrastructure.Shared.Authentication.JWT;
 using PersonalBlog.Infrastructure.Shared.FileServices;
 
-namespace Personal.WebApi.Configurations
+namespace PersonalBlog.WebApi.Configurations
 {
     public static class ServicesConfiguration
     {

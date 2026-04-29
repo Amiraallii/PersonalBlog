@@ -9,8 +9,10 @@ namespace PersonalBlog.Application.Features.PersonalInformation.Query.GetPersona
         public async Task<PersonalInformationDto> Handle(GetPersonalInformationNoTrackingQuery request, CancellationToken cancellationToken)
         {
             var entity = await unitOfWork.PersonalInformationRepository.GetPersonalInformationNoTrackingAsync(cancellationToken);
+
             if (entity == null)
-                throw new KeyNotFoundException();
+                return null;
+
 
             return new PersonalInformationDto
             {

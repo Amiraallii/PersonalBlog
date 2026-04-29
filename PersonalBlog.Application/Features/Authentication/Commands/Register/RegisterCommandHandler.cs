@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
 using Personal.Domain.Enums;
 using PersonalBlog.Application.IServices;
-using Personal.Domain.Entity;
-namespace Personal.Application.Features.Authentication.Commands.Register
+using PersonalBlog.Domain.Entity;
+namespace PersonalBlog.Application.Features.Authentication.Commands.Register
 {
     public class RegisterCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtTokenGenerator) : IRequestHandler<RegisterCommand, AuthResultDto>
     {

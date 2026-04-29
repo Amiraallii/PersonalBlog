@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
-using Personal.Domain.Entity;
+using PersonalBlog.Domain.Entity;
 using PersonalBlog.Application.IServices;
 
 namespace PersonalBlog.Application.Features.Authentication.Commands.RefreshToken

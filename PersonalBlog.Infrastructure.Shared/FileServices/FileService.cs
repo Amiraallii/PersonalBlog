@@ -1,8 +1,8 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.AspNetCore.Hosting;
-using Personal.Application.Dtos;
-using Personal.Application.IServices;
+using PersonalBlog.Application.Dtos;
+using PersonalBlog.Application.IServices;
 using PersonalBlog.Application.IServices;
 using PersonalBlog.Application.Options;
 
@@ -26,7 +26,7 @@ namespace PersonalBlog.Infrastructure.Shared.FileServices
             using var compressed = await _compressor.CompressImageAsync(file.FileStream);
             if (compressed.CanSeek) compressed.Position = 0;
 
-            var key = Path.Combine("/PersonalBlog", "uploads", fileName).Replace('\\', '/');
+            var key = Path.Combine("PersonalBlog", "uploads", fileName).Replace('\\', '/');
 
             
 
@@ -42,7 +42,7 @@ namespace PersonalBlog.Infrastructure.Shared.FileServices
             if (settings.S3Storage.PublicRead)
                 put.CannedACL = S3CannedACL.PublicRead;
 
-            var res = await _s3.PutObjectAsync(put);
+            _ = await _s3.PutObjectAsync(put);
 
             return key;
         }
@@ -59,7 +59,7 @@ namespace PersonalBlog.Infrastructure.Shared.FileServices
                 key = key[prefix.Length..];
             }
             key = key.TrimStart('/');
-            var res = _s3.DeleteObjectAsync(settings.S3Storage.BucketName, key);
+            _ = _s3.DeleteObjectAsync(settings.S3Storage.BucketName, key);
         }
     }
 

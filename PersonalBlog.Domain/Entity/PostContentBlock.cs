@@ -1,6 +1,6 @@
 ﻿using Personal.Domain.Enums;
 
-namespace Personal.Domain.Entity
+namespace PersonalBlog.Domain.Entity
 {
     public class PostContentBlock : Common<Guid>
     {

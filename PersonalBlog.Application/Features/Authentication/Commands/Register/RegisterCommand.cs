@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 
-namespace Personal.Application.Features.Authentication.Commands.Register
+namespace PersonalBlog.Application.Features.Authentication.Commands.Register
 {
     public class RegisterCommand : IRequest<AuthResultDto>
     {

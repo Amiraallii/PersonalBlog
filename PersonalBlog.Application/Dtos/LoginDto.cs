@@ -1,4 +1,4 @@
-﻿namespace Personal.Application.Dtos
+﻿namespace PersonalBlog.Application.Dtos
 {
     public class LoginDto
     {

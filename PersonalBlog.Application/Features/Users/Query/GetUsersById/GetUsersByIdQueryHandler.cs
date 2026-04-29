@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
 
-namespace Personal.Application.Features.Users.Query.GetUsersById
+namespace PersonalBlog.Application.Features.Users.Query.GetUsersById
 {
     internal class GetUsersByIdQueryHandler(IUserRepository _userRepository) : IRequestHandler<GetUsersByIdQuery, UsersDto>
     {

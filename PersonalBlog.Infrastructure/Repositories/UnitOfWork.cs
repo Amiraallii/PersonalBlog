@@ -1,9 +1,9 @@
 ﻿using Personal.Domain.Contracts;
-using Personal.Infrastructure.Context;
+using PersonalBlog.Infrastructure.Context;
 using PersonalBlog.Domain.Contracts;
 using PersonalBlog.Domain.Entity;
 
-namespace Personal.Infrastructure.Repositories
+namespace PersonalBlog.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -13,12 +13,15 @@ namespace Personal.Infrastructure.Repositories
         public IProjectRepository ProjectRepository { get; }
         public IPersonalInformationRepository PersonalInformationRepository { get; }
 
+        public ICommentRepository CommentRepository { get; }
+
         public UnitOfWork(
             ApplicationDbContext context,
             IUserRepository userRepository,
             IPostRepository postRepository,
             IProjectRepository projectRepository,
-            IPersonalInformationRepository personalInformationRepository
+            IPersonalInformationRepository personalInformationRepository,
+            ICommentRepository commentRepository
             )
         {
             _context = context;
@@ -26,6 +29,7 @@ namespace Personal.Infrastructure.Repositories
             PostRepository = postRepository;
             ProjectRepository = projectRepository;
             PersonalInformationRepository = personalInformationRepository;
+            CommentRepository = commentRepository;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken ct = default)

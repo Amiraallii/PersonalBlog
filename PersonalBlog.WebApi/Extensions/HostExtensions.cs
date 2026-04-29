@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Personal.Infrastructure.Context;
+using PersonalBlog.Infrastructure.Context;
 
-namespace Personal.WebApi.Extensions
+namespace PersonalBlog.WebApi.Extensions
 {
     public static class HostExtensions 
     {

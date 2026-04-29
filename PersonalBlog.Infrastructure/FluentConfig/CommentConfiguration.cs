@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Personal.Domain.Entity;
+using PersonalBlog.Domain.Entity;
 
-namespace Personal.Infrastructure.FluentConfig
+namespace PersonalBlog.Infrastructure.FluentConfig
 {
     public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {
@@ -12,9 +12,8 @@ namespace Personal.Infrastructure.FluentConfig
 
             builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.AuthorName)
-                .IsRequired()
-                .HasMaxLength(100);
+            builder.Property(c => c.AuthorId)
+                .IsRequired(true);
 
             builder.Property(c => c.Content)
                 .IsRequired();

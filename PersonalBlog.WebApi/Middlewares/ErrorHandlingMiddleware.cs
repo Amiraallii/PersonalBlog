@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Personal.WebApi.Middlewares
+namespace PersonalBlog.WebApi.Middlewares
 {
     public class ErrorHandlingMiddleware(
     RequestDelegate next,

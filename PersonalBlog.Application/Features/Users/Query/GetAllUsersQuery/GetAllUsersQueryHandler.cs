@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 using Personal.Domain.Contracts;
 
-namespace Personal.Application.Features.Users.Query.GetAllUsersQuery
+namespace PersonalBlog.Application.Features.Users.Query.GetAllUsersQuery
 {
     public class GetAllUsersQueryHandler(IUserRepository _userRepository) : IRequestHandler<GetAllUsersQuery, List<UsersDto>>
     {

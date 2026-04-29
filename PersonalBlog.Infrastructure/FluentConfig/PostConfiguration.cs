@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Personal.Domain.Entity;
+using PersonalBlog.Domain.Entity;
 
-namespace Personal.Infrastructure.FluentConfig
+namespace PersonalBlog.Infrastructure.FluentConfig
 {
     public class PostConfiguration : IEntityTypeConfiguration<Post>
     {

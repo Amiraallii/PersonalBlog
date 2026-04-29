@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Authentication.Commands.RefreshToken
 {

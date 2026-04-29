@@ -1,17 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Personal.Application.Dtos;
-using Personal.Application.Features.Post.Command.AddPost;
 using PersonalBlog.Application.Dtos;
-using PersonalBlog.Application.Features.Post.Command.DeletePost;
-using PersonalBlog.Application.Features.Post.Command.UpdatePost;
-using PersonalBlog.Application.Features.Post.Query.GetAllPosts;
-using PersonalBlog.Application.Features.Post.Query.GetPostById;
-using PersonalBlog.WebApi.Controllers;
-using System.Security.Claims;
+using PersonalBlog.Application.Features.Posts.Command.AddPost;
+using PersonalBlog.Application.Features.Posts.Command.DeletePost;
+using PersonalBlog.Application.Features.Posts.Command.UpdatePost;
+using PersonalBlog.Application.Features.Posts.Query.GetAllPosts;
+using PersonalBlog.Application.Features.Posts.Query.GetPostById;
 
-namespace Personal.WebApi.Controllers
+namespace PersonalBlog.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

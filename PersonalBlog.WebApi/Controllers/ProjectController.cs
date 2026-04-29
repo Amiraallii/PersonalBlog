@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Application.Dtos;
-using PersonalBlog.Application.Features.Project.Command.AddProject;
-using PersonalBlog.Application.Features.Project.Command.DeleteProject;
-using PersonalBlog.Application.Features.Project.Command.UpdateProject;
-using PersonalBlog.Application.Features.Project.Query.GetAllProject;
-using PersonalBlog.Application.Features.Project.Query.GetProjectId;
+using PersonalBlog.Application.Features.Projects.Command.AddProject;
+using PersonalBlog.Application.Features.Projects.Command.DeleteProject;
+using PersonalBlog.Application.Features.Projects.Command.UpdateProject;
+using PersonalBlog.Application.Features.Projects.Query.GetAllProject;
+using PersonalBlog.Application.Features.Projects.Query.GetProjectId;
 
 namespace PersonalBlog.WebApi.Controllers
 {

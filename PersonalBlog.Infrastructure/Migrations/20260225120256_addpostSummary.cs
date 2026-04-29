@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Personal.Infrastructure.Migrations
+namespace PersonalBlog.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class addpostSummary : Migration

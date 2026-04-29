@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Personal.Domain.Enums;
 
-namespace Personal.Application.Dtos
+namespace PersonalBlog.Application.Dtos
 {
     public class AddContentBlocksDto
     {

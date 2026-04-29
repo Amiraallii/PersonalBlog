@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Personal.Application.Dtos;
+using PersonalBlog.Application.Dtos;
 
-namespace Personal.Application.Features.Users.Command.DeleteUser
+namespace PersonalBlog.Application.Features.Users.Command.DeleteUser
 {
     public class DeleteUserCommand : IRequest
     {
