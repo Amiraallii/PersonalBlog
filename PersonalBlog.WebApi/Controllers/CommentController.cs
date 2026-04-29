@@ -8,9 +8,11 @@ using PersonalBlog.Application.Features.Comments.Command.UpdateComment;
 
 namespace PersonalBlog.WebApi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class CommentController(IMediator mediatR) : PersonalController
     {
-    [Authorize]
+        [Authorize]
         public async Task<IActionResult> AddComment(AddCommentDto dto, CancellationToken ct)
         {
             var command = new AddCommentCommand
@@ -24,7 +26,7 @@ namespace PersonalBlog.WebApi.Controllers
             return Ok();
         }
 
-    [Authorize]
+        [Authorize]
         public async Task<IActionResult> UpdateComment(UpdateCommentDto dto, CancellationToken ct)
         {
             var command = new UpdateCommentCommand
@@ -38,7 +40,7 @@ namespace PersonalBlog.WebApi.Controllers
             return Ok();
         }
 
-    [Authorize]
+        [Authorize]
         public async Task<IActionResult> DeleteComment(Guid id, CancellationToken ct)
         {
             var command = new DeleteCommentCommand

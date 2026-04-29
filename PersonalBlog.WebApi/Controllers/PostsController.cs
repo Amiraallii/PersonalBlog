@@ -15,7 +15,7 @@ namespace PersonalBlog.WebApi.Controllers
     public class PostsController(IMediator mediator) : PersonalController
     {
 
-        [Authorize]
+        [Authorize("Admin")]
         [HttpPost("AddPost")]
         public async Task<IActionResult> AddPost([FromForm] AddPostDto post)
         {
@@ -46,7 +46,7 @@ namespace PersonalBlog.WebApi.Controllers
 
         }
 
-        [Authorize]
+        [Authorize("Admin")]
         [HttpPut("UpdatePost")]
         public async Task<IActionResult> UpdatePost([FromForm] UpdatePostDto post)
         {
@@ -75,6 +75,7 @@ namespace PersonalBlog.WebApi.Controllers
 
         }
 
+        [Authorize("Admin")]
         [HttpDelete("DeletePost")]
         public async Task<IActionResult> DeletePost(Guid id)
         {

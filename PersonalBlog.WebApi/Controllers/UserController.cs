@@ -1,12 +1,13 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Application.Dtos;
 using PersonalBlog.Application.Features.Authentication.Commands.Register;
+using PersonalBlog.Application.Features.Users.Command.AddUser;
 using PersonalBlog.Application.Features.Users.Command.DeleteUser;
 using PersonalBlog.Application.Features.Users.Command.EditUser;
 using PersonalBlog.Application.Features.Users.Query.GetAllUsersQuery;
 using PersonalBlog.Application.Features.Users.Query.GetUsersById;
-using PersonalBlog.Application.Features.Users.Command.AddUser;
 
 namespace PersonalBlog.WebApi.Controllers
 {
@@ -15,6 +16,7 @@ namespace PersonalBlog.WebApi.Controllers
     public class UserController(IMediator mediator) : ControllerBase
     {
         [HttpGet("GetAllUsers")]
+        [Authorize("Admin")]
         public async Task<IActionResult> GetAllUsers(CancellationToken ct)
         {
 
@@ -24,6 +26,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpGet("GetUsersById")]
+        [Authorize("Admin")]
         public async Task<IActionResult> GetUsersById(Guid userId, CancellationToken ct)
         {
 
@@ -33,6 +36,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpDelete("DeleteUserById")]
+        [Authorize("Admin")]
         public async Task<IActionResult> DeleteUserById(Guid userId, CancellationToken ct)
         {
 
@@ -42,6 +46,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpPut("EditUserInfo")]
+        [Authorize("Admin")]
         public async Task<IActionResult> EditUserInfo(EditUsersDto dto, CancellationToken ct)
         {
 
@@ -57,6 +62,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpPost("CreateUser")]
+        [Authorize("Admin")]
         public async Task<IActionResult> CreateUser(RegisterDto dto, CancellationToken ct)
         {
 
