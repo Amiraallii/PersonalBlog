@@ -26,8 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Comments\Command\DeleteComment\" />
-    <Folder Include="Features\Comments\Command\UpdateComment\" />
     <Folder Include="Features\Comments\Query\GetAllComment\" />
     <Folder Include="Features\Comments\Query\GetAlCommentsPost\" />
     <Folder Include="Features\Comments\Query\GetCommentById\" />

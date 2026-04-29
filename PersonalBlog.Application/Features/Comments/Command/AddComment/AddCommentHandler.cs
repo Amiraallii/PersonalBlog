@@ -6,10 +6,11 @@ namespace PersonalBlog.Application.Features.Comments.Command.AddComment
 {
     public class AddCommentHandler(IUnitOfWork unitOfWork) : IRequestHandler<AddCommentCommand>
     {
-        public Task Handle(AddCommentCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddCommentCommand request, CancellationToken cancellationToken)
         {
             var comment = new Comment(request.PostId, request.AuthorId, request.Content, true);
-            return null;
+            await unitOfWork.CommentRepository.AddComment(comment, cancellationToken);
+            await unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 }
