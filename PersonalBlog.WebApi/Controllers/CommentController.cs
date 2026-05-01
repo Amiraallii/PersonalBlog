@@ -5,6 +5,9 @@ using PersonalBlog.Application.Dtos;
 using PersonalBlog.Application.Features.Comments.Command.AddComment;
 using PersonalBlog.Application.Features.Comments.Command.DeleteComment;
 using PersonalBlog.Application.Features.Comments.Command.UpdateComment;
+using PersonalBlog.Application.Features.Comments.Query.GetAllComment;
+using PersonalBlog.Application.Features.Comments.Query.GetAllPostComments;
+using PersonalBlog.Application.Features.Comments.Query.GetCommentById;
 
 namespace PersonalBlog.WebApi.Controllers
 {
@@ -13,6 +16,7 @@ namespace PersonalBlog.WebApi.Controllers
     public class CommentController(IMediator mediatR) : PersonalController
     {
         [Authorize]
+        [HttpPost("AddComment")]
         public async Task<IActionResult> AddComment(AddCommentDto dto, CancellationToken ct)
         {
             var command = new AddCommentCommand
@@ -27,6 +31,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [Authorize]
+        [HttpPut("UpdateComment")]
         public async Task<IActionResult> UpdateComment(UpdateCommentDto dto, CancellationToken ct)
         {
             var command = new UpdateCommentCommand
@@ -41,6 +46,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [Authorize]
+        [HttpDelete("DeleteComment")]
         public async Task<IActionResult> DeleteComment(Guid id, CancellationToken ct)
         {
             var command = new DeleteCommentCommand
@@ -53,12 +59,31 @@ namespace PersonalBlog.WebApi.Controllers
             return Ok();
         }
 
-        //public async Task<IActionResult> GetAllComment(CancellationToken ct)
-        //{
-        //    var command = new getallc {};
 
-        //    await mediatR.Send(command, ct);
-        //    return Ok();
-        //}
+        [HttpGet("GetAllComments")]
+        public async Task<IActionResult> GetAllComments(CancellationToken ct)
+        {
+            var command = new GetAllCommentCommand {};
+
+            var comments = await mediatR.Send(command, ct);
+            return Ok(comments);
+        }
+
+        [HttpGet("GetAllPostComments")]
+        public async Task<IActionResult> GetAllPostComments([FromQuery]GetAllPostCommentsCommand dto, CancellationToken ct)
+        {
+            var comments = await mediatR.Send(dto, ct);
+            return Ok(comments);
+        }
+
+        [Authorize]
+        [HttpGet("GetCommentById")]
+        public async Task<IActionResult> GetCommentById([FromQuery]Guid id, CancellationToken ct)
+        {
+            var command = new GetCommentByIdCommand { Id = id };
+
+            var comment = await mediatR.Send(command, ct);
+            return Ok(comment);
+        }
     }
 }

@@ -2,9 +2,7 @@
 using PersonalBlog.Application.IServices;
 using Personal.Domain.Contracts;
 using PersonalBlog.Infrastructure.Repositories;
-using PersonalBlog.Application.IServices;
 using PersonalBlog.Domain.Contracts;
-using PersonalBlog.Infrastructure.Repositories;
 using PersonalBlog.Infrastructure.Shared.Authentication.JWT;
 using PersonalBlog.Infrastructure.Shared.FileServices;
 
@@ -25,6 +23,7 @@ namespace PersonalBlog.WebApi.Configurations
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPersonalInformationRepository, PersonalInformationRepository>();
             services.AddScoped<IFileCompressorService, FileCompressorService>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
 
 
