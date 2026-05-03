@@ -11,7 +11,7 @@ namespace PersonalBlog.WebApi.Controllers
     [Route("[controller]")]
     public class PersonalInformationController(IMediator mediator) : PersonalController
     {
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("ModifyInfo")]
         public async Task<IActionResult> UpsertPersonalInformation(PersonalInformationDto model, CancellationToken ct)
         {

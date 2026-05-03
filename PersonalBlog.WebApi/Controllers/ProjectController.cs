@@ -15,7 +15,7 @@ namespace PersonalBlog.WebApi.Controllers
     public class ProjectController(IMediator mediator) : PersonalController
     {
         [HttpPost("NewProject")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> NewProject(BaseProjectDto dto, CancellationToken ct)
         {
             var command = new AddProjectCommand
@@ -34,7 +34,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpPut("UpdateProject")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProject(UpdateProjectDto dto, CancellationToken ct)
         {
             var command = new UpdateProjectCommand
@@ -54,7 +54,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpDelete("DeleteProject")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProject(int id, CancellationToken ct)
         {
             var command = new DeleteProjectCommand

@@ -16,7 +16,7 @@ namespace PersonalBlog.WebApi.Controllers
     public class UserController(IMediator mediator) : ControllerBase
     {
         [HttpGet("GetAllUsers")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers(CancellationToken ct)
         {
 
@@ -26,7 +26,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpGet("GetUsersById")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUsersById(Guid userId, CancellationToken ct)
         {
 
@@ -36,7 +36,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpDelete("DeleteUserById")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUserById(Guid userId, CancellationToken ct)
         {
 
@@ -46,7 +46,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpPut("EditUserInfo")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUserInfo(EditUsersDto dto, CancellationToken ct)
         {
 
@@ -62,7 +62,7 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpPost("CreateUser")]
-        [Authorize("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser(RegisterDto dto, CancellationToken ct)
         {
 
