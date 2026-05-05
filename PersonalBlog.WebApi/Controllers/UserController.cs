@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalBlog.Application.Dtos;
-using PersonalBlog.Application.Features.Authentication.Commands.Register;
 using PersonalBlog.Application.Features.Users.Command.AddUser;
 using PersonalBlog.Application.Features.Users.Command.DeleteUser;
 using PersonalBlog.Application.Features.Users.Command.EditUser;

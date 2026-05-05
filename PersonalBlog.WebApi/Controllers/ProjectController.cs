@@ -68,11 +68,11 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpGet("GetAllProjects")]
-        public async Task<IActionResult> GetAllProjects(CancellationToken ct)
+        public async Task<IActionResult> GetAllProjects([FromQuery] ResultFilter filter, CancellationToken ct)
         {
             
 
-            var list = await mediator.Send(new GetAllProjectQuery { }, ct);
+            var list = await mediator.Send(new GetAllProjectQuery { Size = filter.Size, Skip = filter.Skip }, ct);
 
             return Ok(list);
         }
