@@ -36,7 +36,7 @@ namespace PersonalBlog.WebApi.Configurations
                 options.AddPolicy("AllowReactApp",
                         builder =>
                         {
-                            builder.WithOrigins("http://amirali.me", "https://www.amirali.me")
+                            builder.WithOrigins("http://amirali.me", "http://localhost:3000")
                                    .AllowAnyHeader()
                                    .AllowAnyMethod();
                         });

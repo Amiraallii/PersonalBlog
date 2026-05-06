@@ -25,6 +25,7 @@ namespace PersonalBlog.Application.Features.Comments.Query.GetAllPostComments
                 PostId = x.PostId,
                 AuthorId = x.AuthorId,
                 AuthorName = x.User.UserName,
+                CreatedAt = x.CreateDate,
                 Content = x.Content,
             }
             ).ToListAsync(cancellationToken);
