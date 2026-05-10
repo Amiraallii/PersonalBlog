@@ -14,8 +14,17 @@ namespace PersonalBlog.Application.Features.Posts.Command.UpdatePost
         {
             var post = await unitOfWork.PostRepository.GetPostById(request.Id, ct);
             post.PostContents.Clear();
-            var coverImagePath = await fileService
-                    .SaveFileAsync(new FileDto { FileStream = request.CoverImage, FileName = request.CoverImageName }, ct);
+            string coverImagePath = "";
+            if (request.CoverImage is not null)
+            {
+                coverImagePath = await fileService
+                   .SaveFileAsync(new FileDto { FileStream = request.CoverImage, FileName = request.CoverImageName }, ct);
+            }
+            else
+            {
+                coverImagePath = request.CoverImageAddress;
+            }
+           
             foreach (var blockCommand in request.PostContents.OrderBy(b => b.Order))
             {
                 string finalContent = string.Empty;
@@ -26,10 +35,14 @@ namespace PersonalBlog.Application.Features.Posts.Command.UpdatePost
                 }
                 else
                 {
-                    if (blockCommand.Media != null)
+                    if (blockCommand.Media is not null)
                     {
                         var mediaPath = await fileService.SaveFileAsync(new FileDto { FileStream = blockCommand.Media, FileName = blockCommand.FileName }, ct);
                         finalContent = mediaPath;
+                    }
+                    else
+                    {
+                        finalContent = blockCommand.Content;
                     }
                 }
                 var newBlock = new PostContentBlock

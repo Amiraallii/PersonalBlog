@@ -25,6 +25,7 @@ namespace PersonalBlog.Application.Features.Posts.Query.GetPostById
                     CoverImageAddress = entity.CoverImageAdd,
                     PostContents = entity.PostContents.Select(x=> new ContentBlocksDto
                     {
+                        Id = x.Id,
                         Content = x.Content,
                         ContentType = x.ContentType,
                         Order = x.Order,

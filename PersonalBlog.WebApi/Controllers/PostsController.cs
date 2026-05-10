@@ -58,6 +58,7 @@ namespace PersonalBlog.WebApi.Controllers
                 PublishDate = post.PublishDate,
                 Summary = post.Summary,
                 CoverImage = post.CoverImage?.OpenReadStream(),
+                CoverImageAddress = post.CoverImageAddress,
                 PostContents = post.PostContents.Select(x => new ContentBlockCommand
                 {
                     Content = x.Content,

@@ -14,5 +14,6 @@ namespace PersonalBlog.Application.Features.Posts.Command.UpdatePost
         public DateTime PublishDate { get; set; }
         public Stream CoverImage { get; set; }
         public ICollection<ContentBlockCommand> PostContents { get; set; }
+        public string CoverImageAddress { get; set; }
     }
 }
