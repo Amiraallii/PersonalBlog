@@ -13,7 +13,7 @@ namespace PersonalBlog.WebApi.Controllers
     {
         [Authorize(Roles = "Admin")]
         [HttpPost("ModifyInfo")]
-        public async Task<IActionResult> UpsertPersonalInformation(PersonalInformationDto model, CancellationToken ct)
+        public async Task<IActionResult> UpsertPersonalInformation([FromBody]PersonalInformationDto model, CancellationToken ct)
         {
             var command = new UpsertPersonalInformationCommand
             {

@@ -65,9 +65,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-app.UseCors("AllowReactApp");
 
-//app.UseCors();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
@@ -78,7 +76,8 @@ if (app.Environment.IsDevelopment())
     app.MigrateDatabase();
     app.MapOpenApi();
 }
-
+app.UseRouting();
+app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
 app.UseAuthorization();

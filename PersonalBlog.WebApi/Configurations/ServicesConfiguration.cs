@@ -33,14 +33,15 @@ namespace PersonalBlog.WebApi.Configurations
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowReactApp",
-                        builder =>
-                        {
-                            builder.WithOrigins("http://amirali.me", "http://localhost:3000")
-                                   .AllowAnyHeader()
-                                   .AllowAnyMethod();
-                        });
+                options.AddPolicy("AllowReactApp", builder =>
+                {
+                    builder.WithOrigins("https://amirali.me", "http://amirali.me")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetPreflightMaxAge(TimeSpan.FromDays(2));
+                });
             });
+
 
             return services;
         }

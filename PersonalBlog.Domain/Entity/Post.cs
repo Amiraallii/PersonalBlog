@@ -41,7 +41,6 @@
             Summary = summary;
             CoverImageAdd = coverImageAdd;
             PublishDate = publishDate;
-            PostContents.Clear();
         }
 
         #endregion ' Actions '
