@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonalBlog.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using PersonalBlog.Infrastructure.Context;
 namespace PersonalBlog.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260521084628_addParentId")]
+    partial class addParentId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,11 +56,9 @@ namespace PersonalBlog.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("PostId", "ParentId");
-
-                    b.ToTable("Comments", "Post");
+                    b.ToTable("Commnets", "Post");
                 });
 
             modelBuilder.Entity("PersonalBlog.Domain.Entity.ContactInfo", b =>
@@ -326,18 +327,11 @@ namespace PersonalBlog.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PersonalBlog.Domain.Entity.Comment", "ParentComment")
-                        .WithMany("Replies")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("PersonalBlog.Domain.Entity.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("ParentComment");
 
                     b.Navigation("Post");
 
@@ -386,11 +380,6 @@ namespace PersonalBlog.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("PersonalBlog.Domain.Entity.Comment", b =>
-                {
-                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("PersonalBlog.Domain.Entity.PersonalInformation", b =>

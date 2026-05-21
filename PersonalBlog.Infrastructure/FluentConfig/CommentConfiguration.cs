@@ -8,7 +8,7 @@ namespace PersonalBlog.Infrastructure.FluentConfig
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.ToTable("Commnets", "Post");
+            builder.ToTable("Comments", "Post");
 
             builder.HasKey(c => c.Id);
 
@@ -30,6 +30,15 @@ namespace PersonalBlog.Infrastructure.FluentConfig
                 .WithMany()
                 .HasForeignKey(x => x.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(c => c.ParentComment)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(c => c.ParentId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired(false);
+
+            builder.HasIndex(c => new { c.PostId, c.ParentId });
         }
     }
+
 }

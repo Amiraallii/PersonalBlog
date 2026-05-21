@@ -24,12 +24,25 @@ namespace PersonalBlog.WebApi.Controllers
                 AuthorId = CurrentUserId,
                 Content = dto.Content,
                 PostId = dto.PostId,
+                ParentId = dto.ParentId
             };
 
             await mediatR.Send(command, ct);
             return Ok();
         }
+        [HttpPost("ReplyComment")]
+        public async Task<IActionResult> ReplyComment(AddCommentDto dto, CancellationToken ct)
+        {
+            var command = new AddCommentCommand
+            {
+                AuthorId = CurrentUserId,
+                Content = dto.Content,
+                PostId = dto.PostId,
+            };
 
+            await mediatR.Send(command, ct);
+            return Ok();
+        }
         [Authorize]
         [HttpPut("UpdateComment")]
         public async Task<IActionResult> UpdateComment(UpdateCommentDto dto, CancellationToken ct)

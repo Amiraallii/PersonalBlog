@@ -8,7 +8,21 @@ namespace PersonalBlog.Application.Features.Comments.Command.AddComment
     {
         public async Task Handle(AddCommentCommand request, CancellationToken cancellationToken)
         {
-            var comment = new Comment(request.PostId, request.AuthorId, request.Content, true);
+            if (request.ParentId.HasValue)
+            {
+                var parent  = await unitOfWork.CommentRepository
+                    .GetCommentById(request.ParentId.Value, cancellationToken);
+
+                if (parent == null)
+                {
+                    throw new KeyNotFoundException();
+                }
+
+                if (parent.ParentId.HasValue)
+                    request.ParentId = parent.ParentId.Value;
+
+            }
+            var comment = new Comment(request.PostId, request.AuthorId, request.Content, true, request.ParentId);
             await unitOfWork.CommentRepository.AddComment(comment, cancellationToken);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }

@@ -35,7 +35,7 @@ namespace PersonalBlog.WebApi.Configurations
             {
                 options.AddPolicy("AllowReactApp", builder =>
                 {
-                    builder.WithOrigins("https://amirali.me", "http://amirali.me")
+                    builder.WithOrigins("https://amirali.me", "http://amirali.me", "http://localhost:3000")
                            .AllowAnyHeader()
                            .AllowAnyMethod()
                            .SetPreflightMaxAge(TimeSpan.FromDays(2));

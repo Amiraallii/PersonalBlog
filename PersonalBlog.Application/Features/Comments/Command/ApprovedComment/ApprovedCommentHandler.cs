@@ -7,7 +7,7 @@ namespace PersonalBlog.Application.Features.Comments.Command.ApprovedComment
     {
         public async Task Handle(ApprovedCommentCommand request, CancellationToken cancellationToken)
         {
-            var comment = await unitOfWork.CommentRepository.GetCommentById(request.Id, cancellationToken);
+            var comment = await unitOfWork.CommentRepository.GetCommentByIdForUpdate(request.Id, cancellationToken);
 
             comment.ApprovedState();
             await unitOfWork.SaveChangesAsync(cancellationToken);   
