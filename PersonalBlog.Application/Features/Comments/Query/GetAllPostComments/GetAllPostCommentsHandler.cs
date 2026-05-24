@@ -12,7 +12,7 @@ namespace PersonalBlog.Application.Features.Comments.Query.GetAllPostComments
         {
             var skip = (request.Skip - 1) * request.Size;
             var query = unitOfWork.CommentRepository
-                .GetAllComments(cancellationToken)
+                .GetAllComments()
                 .Where(x => x.PostId == request.PostId)
                 .Skip(skip)
                 .Take(request.Size)

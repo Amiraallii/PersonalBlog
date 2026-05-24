@@ -10,7 +10,7 @@ namespace PersonalBlog.Application.Features.Comments.Query.GetAllComment
         public async Task<IReadOnlyList<CommentDto>> Handle(GetAllCommentCommand request, CancellationToken cancellationToken)
         {
             var query = unitOfWork.CommentRepository.
-                GetAllComments(cancellationToken)
+                GetAllComments()
                 .Include(x => x.User);
             return await query.Select(x => new CommentDto
             {
