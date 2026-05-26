@@ -20,6 +20,7 @@ namespace PersonalBlog.WebApi.Configurations
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IProjectRequestRepository, ProjectRequestRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPersonalInformationRepository, PersonalInformationRepository>();
             services.AddScoped<IFileCompressorService, FileCompressorService>();

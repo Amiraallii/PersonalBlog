@@ -11,6 +11,7 @@ namespace PersonalBlog.Infrastructure.Context
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<Post> Posts => Set<Post>();
         public DbSet<Project> Projects => Set<Project>();
+        public DbSet<ProjectRequest> ProjectRequests => Set<ProjectRequest>();
         public DbSet<Comment> Comments => Set<Comment>();
         public DbSet<PostContentBlock> PostContentBlocks => Set<PostContentBlock>();
         public DbSet<PersonalInformation> PersonalInformations => Set<PersonalInformation>();

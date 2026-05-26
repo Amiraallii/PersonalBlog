@@ -10,6 +10,6 @@
         Instagram = 5,
         Twitter = 6,
         Email = 7,
-
+        Location = 8,
     }
 }

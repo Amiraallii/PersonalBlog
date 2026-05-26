@@ -8,6 +8,7 @@ namespace Personal.Domain.Contracts
         IUserRepository UserRepository { get; }
         IPostRepository PostRepository { get; }
         IProjectRepository ProjectRepository { get; }
+        IProjectRequestRepository ProjectRequestRepository { get; }
         IPersonalInformationRepository PersonalInformationRepository { get; }
         ICommentRepository CommentRepository { get; }
         Task<int> SaveChangesAsync(CancellationToken ct = default);

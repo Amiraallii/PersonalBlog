@@ -11,6 +11,7 @@ namespace PersonalBlog.Infrastructure.Repositories
         public IUserRepository UserRepository { get; }
         public IPostRepository PostRepository { get; }
         public IProjectRepository ProjectRepository { get; }
+        public IProjectRequestRepository ProjectRequestRepository { get; }
         public IPersonalInformationRepository PersonalInformationRepository { get; }
 
         public ICommentRepository CommentRepository { get; }
@@ -21,7 +22,8 @@ namespace PersonalBlog.Infrastructure.Repositories
             IPostRepository postRepository,
             IProjectRepository projectRepository,
             IPersonalInformationRepository personalInformationRepository,
-            ICommentRepository commentRepository
+            ICommentRepository commentRepository,
+            IProjectRequestRepository projectRequestRepository
             )
         {
             _context = context;
@@ -30,6 +32,7 @@ namespace PersonalBlog.Infrastructure.Repositories
             ProjectRepository = projectRepository;
             PersonalInformationRepository = personalInformationRepository;
             CommentRepository = commentRepository;
+            ProjectRequestRepository = projectRequestRepository;
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken ct = default)

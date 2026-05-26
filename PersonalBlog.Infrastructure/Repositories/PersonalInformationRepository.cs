@@ -25,9 +25,18 @@ namespace PersonalBlog.Infrastructure.Repositories
         public async Task<PersonalInformation> GetPersonalInformationNoTrackingAsync(CancellationToken ct)
         {
             return await _context.PersonalInformations
-                .Include(x=> x.ContactInfos)
+                .Include(x => x.ContactInfos)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(ct);
+        }
+
+        public async Task<List<string>> GetAllLocations(CancellationToken ct)
+        {
+            return await _context.ContactInfos
+                .AsNoTracking()
+                .Where(x => x.ContactWayType == Domain.Enums.ContactWayType.Location)
+                .Select(x => x.ContactWay)
+                .ToListAsync(ct);
         }
     }
 }
