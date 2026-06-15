@@ -89,12 +89,12 @@ namespace PersonalBlog.WebApi.Controllers
         }
 
         [HttpGet("GetAllPosts")]
-        public async Task<IActionResult> GetAllPosts([FromQuery] ResultFilter filter)
+        public async Task<IActionResult> GetAllPosts([FromQuery] PagingRequestDto filter)
         {
             var query = new GetAllPostsQuery
             {
                 Skip = filter.Skip,
-                Size = filter.Size,
+                PageSize = filter.PageSize,
             };
             var result = await mediator.Send(query);
 

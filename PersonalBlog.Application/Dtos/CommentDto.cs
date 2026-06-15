@@ -7,6 +7,8 @@
         public string AuthorName { get; set; }
         public bool IsApproved { get; set; }
         public DateTime CreatedAt { get; set; }
+        public Guid? ParentId { get; set; }
+        public int ReplyCount { get; set; }
     }
     public class AddCommentDto
     {

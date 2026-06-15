@@ -5,20 +5,19 @@ using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Projects.Query.GetAllProject
 {
-    internal class GetAllProjectHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetAllProjectQuery, PagedResult<ProjectDto>>
+    internal class GetAllProjectHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetAllProjectQuery, PagedResultDto<ProjectDto>>
     {
-        public async Task<PagedResult<ProjectDto>> Handle(GetAllProjectQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResultDto<ProjectDto>> Handle(GetAllProjectQuery request, CancellationToken cancellationToken)
         {
             var query = unitOfWork.ProjectRepository.GetAllProject();
 
             var totalCount = await query.CountAsync(cancellationToken);
 
-            var skip = (request.Skip - 1) * request.Size;
 
             var items = await query
                 .OrderByDescending(x => x.StartDate)
-                .Skip(skip)
-                .Take(request.Size)
+                .Skip(request.Skip)
+                .Take(request.PageSize)
                 .Select(x => new ProjectDto
                 {
                     Id = x.Id,
@@ -30,12 +29,11 @@ namespace PersonalBlog.Application.Features.Projects.Query.GetAllProject
                     StartDate = x.StartDate,
                 }).ToListAsync(cancellationToken);
 
-            return new PagedResult<ProjectDto>
+            return new PagedResultDto<ProjectDto>
             {
                 Items = items,
                 TotalCount = totalCount,
-                PageNumber = request.Skip,
-                PageSize = request.Size
+                HasNextPage = (request.Skip + request.PageSize) < totalCount
             };
         }
 

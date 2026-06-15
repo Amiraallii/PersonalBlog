@@ -15,5 +15,15 @@ namespace PersonalBlog.WebApi.Controllers
                 return new();
             }
         }
+
+
+        protected string CurrentUsername
+        {
+            get
+            {
+                var userName = User.FindFirst("userName")?.Value;
+                return userName ?? "";
+            }
+        }
     }
 }

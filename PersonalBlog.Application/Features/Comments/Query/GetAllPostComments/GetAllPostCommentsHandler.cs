@@ -6,19 +6,21 @@ using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Comments.Query.GetAllPostComments
 {
-    public class GetAllPostCommentsHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetAllPostCommentsCommand, IReadOnlyList<CommentDto>>
+    public class GetAllPostCommentsHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetAllPostCommentsCommand, PagedResultDto<CommentDto>>
     {
-        public async Task<IReadOnlyList<CommentDto>> Handle(GetAllPostCommentsCommand request, CancellationToken cancellationToken)
+        public async Task<PagedResultDto<CommentDto>> Handle(GetAllPostCommentsCommand request, CancellationToken cancellationToken)
         {
-            var skip = (request.Skip - 1) * request.Size;
             var query = unitOfWork.CommentRepository
                 .GetAllComments()
-                .Where(x => x.PostId == request.PostId)
-                .Skip(skip)
-                .Take(request.Size)
-                .Include(x => x.User);
+                .Where(x => x.PostId == request.PostId && x.ParentId == null);
 
-            return await query.Select(x =>
+            var totalCount = await query.CountAsync(cancellationToken);
+
+
+            var items = await query
+                .Skip(request.Skip)
+                .Take(request.PageSize)
+                .Select(x =>
             new CommentDto
             {
                 Id = x.Id,
@@ -27,8 +29,16 @@ namespace PersonalBlog.Application.Features.Comments.Query.GetAllPostComments
                 AuthorName = x.User.UserName,
                 CreatedAt = x.CreateDate,
                 Content = x.Content,
-            }
-            ).ToListAsync(cancellationToken);
+                ReplyCount = x.Replies.Count(),
+            })
+            .ToListAsync(cancellationToken);
+
+            return new PagedResultDto<CommentDto>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                HasNextPage = (request.Skip + request.PageSize) < totalCount
+            };
         }
     }
 }

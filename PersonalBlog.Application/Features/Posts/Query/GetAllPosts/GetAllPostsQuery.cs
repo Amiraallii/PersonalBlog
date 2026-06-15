@@ -3,7 +3,7 @@ using PersonalBlog.Application.Dtos;
 
 namespace PersonalBlog.Application.Features.Posts.Query.GetAllPosts
 {
-    public class GetAllPostsQuery : ResultFilter, IRequest<PagedResult<PostDto>>
+    public class GetAllPostsQuery : PagingRequestDto, IRequest<PagedResultDto<PostDto>>
     {
     }
 }

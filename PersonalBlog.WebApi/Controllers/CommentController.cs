@@ -28,7 +28,15 @@ namespace PersonalBlog.WebApi.Controllers
             };
 
             await mediatR.Send(command, ct);
-            return Ok();
+            return Ok(new CommentDto {
+                AuthorId = CurrentUserId,
+                AuthorName = CurrentUsername,
+                Content = dto.Content,
+                CreatedAt = DateTime.UtcNow,
+                PostId = dto.PostId,
+                ParentId = dto.ParentId
+                
+            });
         }
         [HttpPost("ReplyComment")]
         public async Task<IActionResult> ReplyComment(AddCommentDto dto, CancellationToken ct)

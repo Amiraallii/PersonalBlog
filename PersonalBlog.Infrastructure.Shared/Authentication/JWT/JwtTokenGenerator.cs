@@ -19,7 +19,8 @@ namespace PersonalBlog.Infrastructure.Shared.Authentication.JWT
             {
                 new("sub", user.Id.ToString()),
                 new("email", user.Email),
-                new("role", user.Role?.Name ?? UserRole.User.ToString())
+                new("role", user.Role?.Name ?? UserRole.User.ToString()),
+                new("userName", user.UserName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Jwt.Key!));

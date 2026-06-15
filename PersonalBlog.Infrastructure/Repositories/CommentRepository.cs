@@ -30,6 +30,7 @@ namespace PersonalBlog.Infrastructure.Repositories
         public IQueryable<Comment> GetAllComments()
         {
             return _context.Comments
+                .OrderByDescending(x=>x.CreateDate)
                 .AsNoTracking();
         }
 

@@ -5,21 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PersonalBlog.Application.Features.Posts.Query.GetAllPosts
 {
-    public class GetAllPostsHandler(IPostRepository postRepository) : IRequestHandler<GetAllPostsQuery, PagedResult<PostDto>>
+    public class GetAllPostsHandler(IPostRepository postRepository) : IRequestHandler<GetAllPostsQuery, PagedResultDto<PostDto>>
     {
-        public async Task<PagedResult<PostDto>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
+        public async Task<PagedResultDto<PostDto>> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
         {
 
             var query = postRepository.GetAllPosts();
 
             var totalCount = await query.CountAsync(cancellationToken);
 
-            var skip = (request.Skip - 1) * request.Size;
 
             var result = await query
                 .OrderByDescending(x => x.PublishDate)
-                .Skip(skip)
-                .Take(request.Size)
+                .Skip(request.Skip)
+                .Take(request.PageSize)
                 .Select(x => new PostDto
                 {
                     Id = x.Id,
@@ -30,12 +29,11 @@ namespace PersonalBlog.Application.Features.Posts.Query.GetAllPosts
 
                 }).ToListAsync(cancellationToken);
 
-            return new PagedResult<PostDto>
+            return new PagedResultDto<PostDto>
             {
                 Items = result,
                 TotalCount = totalCount,
-                PageNumber = request.Skip,
-                PageSize = request.Size
+                HasNextPage = (request.Skip + request.PageSize) < totalCount
             };
 
 
