@@ -2,6 +2,8 @@
 
 A modern, full-stack personal platform featuring a dynamic blog, portfolio showcase, experience timeline, and a robust admin management system. Built with .NET 9 and React 19.
 
+**Live Demo:** [amirali.me](https://amirali.me)
+
 ## Features
 
 ### Public User Features
